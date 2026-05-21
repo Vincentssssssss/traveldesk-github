@@ -1,0 +1,74 @@
+{
+  "faqs": [
+    {
+      "id": "FAQ-001",
+      "question": "How do I submit a travel request?",
+      "answer": "You can submit a travel request through the Travel Desk portal or by chatting with our AI assistant. You'll need your travel dates, destination, purpose of travel, and cost center code. Requests are typically processed within 2 business hours.",
+      "category": "general",
+      "keywords": ["submit", "request", "travel request", "how to book"]
+    },
+    {
+      "id": "FAQ-002",
+      "question": "How long does visa processing take?",
+      "answer": "Visa processing times vary by destination: USA visa (B1/B2): 2-8 weeks, UK visa: 3-4 weeks, Schengen (Europe): 2-3 weeks, India visa: 3-5 business days, Canada visa: 2-4 weeks. Always initiate at least 4 weeks before travel to allow buffer time.",
+      "category": "visa",
+      "keywords": ["visa", "processing time", "visa duration", "how long visa"]
+    },
+    {
+      "id": "FAQ-003",
+      "question": "What is the process for cancelling a trip?",
+      "answer": "To cancel a trip, contact the travel desk immediately via chat or email. Provide your booking reference/PNR number. We will check refund eligibility based on fare rules. Refundable tickets are processed within 5-7 business days. Non-refundable tickets may qualify for travel credits with the airline.",
+      "category": "cancellation",
+      "keywords": ["cancel", "cancellation", "trip cancel", "refund", "cancel booking"]
+    },
+    {
+      "id": "FAQ-004",
+      "question": "Can I upgrade to business class?",
+      "answer": "Business class upgrades are governed by company policy. Employees at Senior Manager level and above may book business class for flights over 6 hours. All other employees require department head approval. If you've accumulated miles, personal upgrades using your own miles are permitted but must be declared.",
+      "category": "flight",
+      "keywords": ["upgrade", "business class", "first class", "premium"]
+    },
+    {
+      "id": "FAQ-005",
+      "question": "How do I claim travel expenses?",
+      "answer": "Submit all travel expenses through Concur Expense within 30 days of return. Attach all receipts above $25. Select the correct cost center and project code. Meals, local transport, and incidentals within per diem limits don't require receipts. Reimbursement is processed with the next payroll cycle.",
+      "category": "expense",
+      "keywords": ["expense", "claim", "reimburse", "reimbursement", "concur", "receipt"]
+    },
+    {
+      "id": "FAQ-006",
+      "question": "What travel insurance is provided?",
+      "answer": "All employees traveling on company business are covered by our corporate travel insurance policy. Coverage includes: medical emergencies up to $1M, trip cancellation up to $10,000, lost baggage up to $3,000, and 24/7 emergency assistance. Policy details are in the employee handbook. For coverage certificates, contact HR.",
+      "category": "insurance",
+      "keywords": ["insurance", "travel insurance", "coverage", "medical", "emergency coverage"]
+    },
+    {
+      "id": "FAQ-007",
+      "question": "What is the process for international travel approval?",
+      "answer": "International travel requires: (1) Manager approval via the travel portal, (2) Travel risk assessment for destinations rated Level 2 or above by the State Department, (3) Completed travel registration form. High-risk destinations require additional security briefing and country-specific insurance.",
+      "category": "international",
+      "keywords": ["international", "overseas", "foreign travel", "approval", "international travel"]
+    },
+    {
+      "id": "FAQ-008",
+      "question": "Can I bring my family on a business trip?",
+      "answer": "Personal travel can be combined with business travel, but the company only reimburses the business portion. Additional costs for family members (extra hotel room, meals, tickets) are entirely personal. Book personal components separately — the travel desk can assist with booking but charges go to personal payment.",
+      "category": "general",
+      "keywords": ["family", "spouse", "personal", "combine", "leisure"]
+    },
+    {
+      "id": "FAQ-009",
+      "question": "What is the baggage policy?",
+      "answer": "The company reimburses one checked bag (up to 50 lbs/23 kg) per trip direction for domestic travel. For international travel, one checked bag is reimbursed per direction. Excess baggage fees require manager approval. Personal items in carry-on are not reimbursed.",
+      "category": "flight",
+      "keywords": ["baggage", "luggage", "checked bag", "excess baggage"]
+    },
+    {
+      "id": "FAQ-010",
+      "question": "What are the preferred airlines?",
+      "answer": "Our preferred airlines are: Domestic (USA): Delta, United, American Airlines. International: Delta, United, Lufthansa, Singapore Airlines, Emirates. Preferred airlines offer negotiated corporate rates. Booking on non-preferred carriers requires a price comparison showing at least 10% cost difference.",
+      "category": "flight",
+      "keywords": ["preferred airline", "which airline", "airline partners", "approved airline"]
+    }
+  ]
+}

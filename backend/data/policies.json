@@ -1,0 +1,68 @@
+{
+  "policies": [
+    {
+      "id": "FLIGHT-001",
+      "category": "flight",
+      "title": "Economy Class Mandate",
+      "description": "All employees must travel economy class for flights under 6 hours. Business class is permitted for flights over 6 hours for Senior Manager level and above.",
+      "applies_to": "all_employees",
+      "exceptions": ["VP level and above may book business class on any flight", "Medical necessity with doctor's note", "No economy availability within 24 hours of departure"]
+    },
+    {
+      "id": "FLIGHT-002",
+      "category": "flight",
+      "title": "Advance Purchase Requirement",
+      "description": "Domestic flights must be booked at least 7 days in advance. International flights must be booked at least 14 days in advance to qualify for reimbursement without approval.",
+      "applies_to": "all_employees",
+      "exceptions": ["Emergency travel approved by department head", "Client-driven last-minute travel"]
+    },
+    {
+      "id": "HOTEL-001",
+      "category": "hotel",
+      "title": "Per Diem Hotel Cap",
+      "description": "Hotel costs are capped at $200/night for domestic travel and $250/night for international travel. Exceptions require manager approval.",
+      "applies_to": "all_employees",
+      "exceptions": ["Conference hotels when conference rate is the lowest available", "Cities with documented high-cost exceptions (NYC, SF, London, Tokyo)"]
+    },
+    {
+      "id": "HOTEL-002",
+      "category": "hotel",
+      "title": "Preferred Hotel Partners",
+      "description": "Employees must book from the preferred hotel partner list (Marriott, Hilton, Hyatt, IHG) when available. Booking outside preferred partners requires justification.",
+      "applies_to": "all_employees",
+      "exceptions": ["No preferred partner available within 2 miles of destination", "Conference-hosted properties"]
+    },
+    {
+      "id": "EXPENSE-001",
+      "category": "expense",
+      "title": "Meal Allowance",
+      "description": "Daily meal allowance is $75 for domestic travel and $100 for international travel. Receipts required for any individual meal over $25.",
+      "applies_to": "all_employees",
+      "exceptions": ["Client entertainment with prior approval", "Team meals with manager approval"]
+    },
+    {
+      "id": "CAB-001",
+      "category": "ground_transport",
+      "title": "Ground Transportation Policy",
+      "description": "Use of rideshare (Uber/Lyft) or company-approved cab vendors is preferred. Personal vehicle use is reimbursed at IRS mileage rate ($0.67/mile). Airport parking must be economy/off-site unless unavailable.",
+      "applies_to": "all_employees",
+      "exceptions": ["Heavy luggage requiring larger vehicle", "Medical necessity"]
+    },
+    {
+      "id": "VISA-001",
+      "category": "visa",
+      "title": "Visa Application Process",
+      "description": "Visa applications must be initiated at least 4 weeks before travel. The travel desk handles all visa applications. Employees must submit passport copy, invitation letter, and accommodation proof.",
+      "applies_to": "all_employees",
+      "exceptions": ["Visa on arrival destinations require only standard documentation", "Emergency visa processing available with department head approval at additional cost"]
+    },
+    {
+      "id": "CANCEL-001",
+      "category": "cancellation",
+      "title": "Cancellation and Refund Policy",
+      "description": "Cancellations must be reported to the travel desk immediately. Non-refundable bookings require department head approval before booking. Unused tickets/credits must be reported to the travel desk within 24 hours.",
+      "applies_to": "all_employees",
+      "exceptions": ["Medical emergencies documented with doctor's note are fully reimbursed", "Carrier-initiated cancellations qualify for full refund"]
+    }
+  ]
+}
