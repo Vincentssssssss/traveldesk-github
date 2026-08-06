@@ -81,7 +81,7 @@ class ChatResponse(BaseModel):
 
 
 def _is_demo() -> bool:
-    key = os.environ.get("ANTHROPIC_API_KEY", "")
+    key = os.environ.get("AZURE_OPENAI_KEY", "")
     return not key or key.startswith("your_") or key == "test-key"
 
 
