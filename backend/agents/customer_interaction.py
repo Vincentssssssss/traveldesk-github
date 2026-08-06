@@ -1,26 +1,16 @@
 from __future__ import annotations
-import os
 from functools import lru_cache
 from langchain_core.messages import SystemMessage, HumanMessage
+from agents.llm_provider import is_demo_mode, create_openai_chat
 from models.state import TravelDeskState
-
-
-def _is_demo() -> bool:
-    key = os.environ.get("ANTHROPIC_API_KEY", "")
-    return not key or key.startswith("your_") or key == "test-key"
 
 
 @lru_cache(maxsize=1)
 def _get_llm():
-    if _is_demo():
+    if is_demo_mode():
         from agents.mock_llm import MockLLM
         return MockLLM(role="customer_interaction")
-    from langchain_anthropic import ChatAnthropic
-    return ChatAnthropic(
-        model="claude-sonnet-4-6",
-        api_key=os.environ["ANTHROPIC_API_KEY"],
-        max_tokens=1024,
-    )
+    return create_openai_chat(default_model="gpt-5.3-codex", max_tokens=1024)
 
 
 SYSTEM_PROMPT = """You are the Customer Interaction Agent for a corporate Travel Desk.
@@ -46,7 +36,7 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
         non_compliant = [r for r in results if not r.get("policy_compliant", True)]
         compliant_count = count - len(non_compliant)
 
-        if _is_demo():
+        if is_demo_mode():
             # Fast deterministic response for demo
             approval_note = (
                 f" {len(non_compliant)} option(s) exceed policy limits and will need manager approval."

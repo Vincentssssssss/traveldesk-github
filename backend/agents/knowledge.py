@@ -1,27 +1,17 @@
 from __future__ import annotations
-import os
 from functools import lru_cache
 from langchain_core.messages import SystemMessage, HumanMessage
+from agents.llm_provider import is_demo_mode, create_openai_chat
 from tools.knowledge_base import search_faqs, search_policies
 from models.state import TravelDeskState
 
 
-def _is_demo() -> bool:
-    key = os.environ.get("ANTHROPIC_API_KEY", "")
-    return not key or key.startswith("your_") or key == "test-key"
-
-
 @lru_cache(maxsize=1)
 def _get_llm():
-    if _is_demo():
+    if is_demo_mode():
         from agents.mock_llm import MockLLM
         return MockLLM(role="knowledge")
-    from langchain_anthropic import ChatAnthropic
-    return ChatAnthropic(
-        model="claude-haiku-4-5-20251001",
-        api_key=os.environ["ANTHROPIC_API_KEY"],
-        max_tokens=1024,
-    )
+    return create_openai_chat(default_model="gpt-5.3-codex", max_tokens=1024)
 
 
 SYSTEM_PROMPT = """You are the Knowledge Agent for a corporate Travel Desk.

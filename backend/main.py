@@ -15,6 +15,7 @@ from pydantic import BaseModel
 from langchain_core.messages import HumanMessage
 
 from graph.travel_graph import get_compiled_graph
+from agents.llm_provider import is_demo_mode
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -80,19 +81,14 @@ class ChatResponse(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-def _is_demo() -> bool:
-    key = os.environ.get("ANTHROPIC_API_KEY", "")
-    return not key or key.startswith("your_") or key == "test-key"
-
-
 @app.get("/health")
 async def health():
-    return {"status": "ok", "service": "TravelDesk AI MVP", "demo_mode": _is_demo()}
+    return {"status": "ok", "service": "TravelDesk AI MVP", "demo_mode": is_demo_mode()}
 
 
 @app.get("/api/demo-status")
 async def demo_status():
-    return {"demo_mode": _is_demo()}
+    return {"demo_mode": is_demo_mode()}
 
 
 @app.post("/api/chat", response_model=ChatResponse)
