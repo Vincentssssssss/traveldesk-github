@@ -40,7 +40,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="TravelDesk AI",
     description="AI-powered corporate travel desk support platform",
-    version="0.1.0-mvp",
+    version="1.0.0",
     lifespan=lifespan,
 )
 
@@ -83,7 +83,7 @@ class ChatResponse(BaseModel):
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "service": "TravelDesk AI MVP", "demo_mode": is_demo_mode()}
+    return {"status": "ok", "service": "TravelDesk AI v1.0", "demo_mode": is_demo_mode()}
 
 
 @app.get("/api/demo-status")

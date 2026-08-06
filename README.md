@@ -2,6 +2,13 @@
 
 > An AI-powered customer support system for corporate travel desks, built on **LangGraph** multi-agent orchestration and **OpenAI Codex**.
 
+## v1.0.0 Release
+
+- OpenAI Codex integration (replacing Anthropic dependency)
+- Azure OpenAI endpoint support (`/openai/v1` and `/openai/v1/responses`)
+- Stable Demo Mode fallback when no API key is configured
+- LLM output parsing compatibility fixes for Responses API content blocks
+
 ---
 
 ## Overview
