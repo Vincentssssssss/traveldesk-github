@@ -1,7 +1,7 @@
 from __future__ import annotations
 from functools import lru_cache
 from langchain_core.messages import SystemMessage, HumanMessage
-from agents.llm_provider import is_demo_mode, create_openai_chat
+from agents.llm_provider import is_demo_mode, create_openai_chat, extract_text_content
 from models.state import TravelDeskState
 
 
@@ -59,7 +59,7 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
                 f"Write a brief 2-3 sentence intro."
             )),
         ])
-        return {"final_response": response.content}
+        return {"final_response": extract_text_content(response)}
 
     # Knowledge/FAQ path
     if state.get("final_response"):
@@ -69,4 +69,4 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
         SystemMessage(content=SYSTEM_PROMPT),
         HumanMessage(content=f"Customer asked: {user_text}\nPlease help them."),
     ])
-    return {"final_response": response.content}
+    return {"final_response": extract_text_content(response)}

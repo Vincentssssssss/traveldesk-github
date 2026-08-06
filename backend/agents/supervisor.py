@@ -2,7 +2,7 @@ from __future__ import annotations
 import json
 from functools import lru_cache
 from langchain_core.messages import SystemMessage, HumanMessage
-from agents.llm_provider import is_demo_mode, create_openai_chat
+from agents.llm_provider import is_demo_mode, create_openai_chat, extract_text_content
 from models.state import TravelDeskState
 
 
@@ -43,8 +43,8 @@ def supervisor_node(state: TravelDeskState) -> dict:
     ])
 
     try:
-        parsed = json.loads(response.content)
-    except (json.JSONDecodeError, AttributeError):
+        parsed = json.loads(extract_text_content(response))
+    except (json.JSONDecodeError, AttributeError, TypeError):
         parsed = {
             "intent": "general_faq",
             "sub_intent": None,

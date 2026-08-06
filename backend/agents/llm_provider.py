@@ -25,6 +25,55 @@ def is_demo_mode() -> bool:
     return not key or key.startswith("your_") or key == "test-key"
 
 
+def extract_text_content(value) -> str:
+    """
+    Normalize LLM outputs into plain text.
+
+    Azure OpenAI Responses may return `AIMessage.content` as a list of
+    typed content blocks (dict/object), while other providers commonly
+    return a plain string. This function supports both formats.
+    """
+    if value is None:
+        return ""
+
+    # Accept full message object as input.
+    if hasattr(value, "content"):
+        value = value.content
+
+    if isinstance(value, str):
+        return value
+
+    if isinstance(value, list):
+        parts: list[str] = []
+        for item in value:
+            text = extract_text_content(item)
+            if text:
+                parts.append(text)
+        return "".join(parts).strip()
+
+    if isinstance(value, dict):
+        # Common Responses API block: {"type":"output_text","text":"..."}
+        text = value.get("text")
+        if isinstance(text, str):
+            return text
+        if isinstance(text, list):
+            return extract_text_content(text)
+
+        # Fallbacks for other block shapes
+        for key in ("content", "output_text", "value"):
+            nested = value.get(key)
+            if nested is not None:
+                return extract_text_content(nested)
+        return ""
+
+    # Object-like content items from SDKs.
+    for attr in ("text", "content", "output_text", "value"):
+        if hasattr(value, attr):
+            return extract_text_content(getattr(value, attr))
+
+    return str(value)
+
+
 def create_openai_chat(default_model: str, max_tokens: int):
     from langchain_openai import ChatOpenAI
 

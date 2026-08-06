@@ -1,7 +1,7 @@
 from __future__ import annotations
 from functools import lru_cache
 from langchain_core.messages import SystemMessage, HumanMessage
-from agents.llm_provider import is_demo_mode, create_openai_chat
+from agents.llm_provider import is_demo_mode, create_openai_chat, extract_text_content
 from tools.knowledge_base import search_faqs, search_policies
 from models.state import TravelDeskState
 
@@ -67,5 +67,5 @@ def knowledge_agent_node(state: TravelDeskState) -> dict:
     return {
         "knowledge_results": knowledge_results,
         "response_type": "policy" if intent == "policy_query" else "text",
-        "final_response": response.content,
+        "final_response": extract_text_content(response),
     }

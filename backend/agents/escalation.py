@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 from functools import lru_cache
 from langchain_core.messages import SystemMessage, HumanMessage
-from agents.llm_provider import is_demo_mode, create_openai_chat
+from agents.llm_provider import is_demo_mode, create_openai_chat, extract_text_content
 from models.state import TravelDeskState
 
 
@@ -63,6 +63,6 @@ def escalation_agent_node(state: TravelDeskState) -> dict:
         "escalated": True,
         "escalation_id": escalation_id,
         "response_type": "escalation",
-        "final_response": response.content,
+        "final_response": extract_text_content(response),
         "knowledge_results": [escalation_data],
     }
