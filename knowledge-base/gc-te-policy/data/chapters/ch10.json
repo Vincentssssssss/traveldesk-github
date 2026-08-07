@@ -1,0 +1,36 @@
+{
+  "id": "ch10",
+  "title": "费用提交与 Concur 流程",
+  "title_en": "Expense Submission via Concur",
+  "category": "submission",
+  "summary": "所有费用通过 SAP Concur 提交，30天内完成，正确编码 Cost Center 和 Project Code。",
+  "sections": [
+    {
+      "id": "ch10-s01",
+      "title": "Concur 提交流程",
+      "content": "**Step 1: 创建 Expense Report**\n- 登录 Concur (https://www.concur.com)\n- 选择正确的 Report Type: \"Travel Expense - GC\"\n- 填写 Trip Name 和 Date Range\n\n**Step 2: 添加费用条目**\n- 从 Corporate Card 导入（自动匹配）\n- 手动添加 Out-of-pocket 费用\n- 上传收据/发票照片\n- 选择正确的 Expense Type\n\n**Step 3: 编码**\n- Cost Center: 你的部门编码\n- Project Code / WBS: 客户项目编号\n- 内部活动: 使用 Internal Project Code\n\n**Step 4: 提交审批**\n- 系统自动检查 Policy Compliance\n- Out-of-Policy 项目会 flagged\n- 提交给 Line Manager 审批\n- Manager 批准后流转至 GFOS T&E Audit",
+      "key_points": ["Concur系统", "4步流程", "自动Policy Check"],
+      "related_rules": ["RULE-SUB-001"]
+    },
+    {
+      "id": "ch10-s02",
+      "title": "提交时限",
+      "content": "- **标准时限**：出差结束或费用发生日期起 **30 个自然日** 内\n- **Corporate Card**：当月末前必须提交\n- **Late Submission**：\n  - 31-60 天：需 Manager 书面说明\n  - >60 天：需 Office Head 批准\n  - >90 天：原则上不予报销\n- **Reimbursement Cycle**：审批通过后，随下一 Payroll 周期到账",
+      "key_points": ["30天标准", "Late需说明", ">90天原则不报"],
+      "related_rules": ["RULE-SUB-002"]
+    },
+    {
+      "id": "ch10-s03",
+      "title": "Expense Type 分类",
+      "content": "| Expense Type | 用途 | 需收据 |\n|-------------|------|-------|\n| Airfare | 机票 | 自动 (Card) |\n| Hotel | 住宿 | 自动 (Card) |\n| Ground Transport | 地面交通 | >¥100 |\n| Meals - Allowance | 餐饮津贴 | 否 (Allowance内) |\n| Meals - Actual | 实际餐饮 | >¥200 |\n| Client Entertainment | 客户招待 | 总是 |\n| Incidentals | 杂费 | >¥100 |\n| Conference Fee | 会议注册 | 总是 |\n| Visa/Passport | 签证护照 | 总是 |",
+      "key_points": ["按类型分类", "收据要求不同", "Client CE总是需收据"],
+      "related_rules": ["RULE-SUB-003"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-SUB-001", "title": "Concur 唯一渠道", "description": "所有费用报销必须通过 Concur 提交，不接受邮件/纸质报销。", "severity": "critical"},
+    {"id": "RULE-SUB-002", "title": "30天规则", "description": "超过 30 天未提交的费用需额外审批。", "severity": "warning"},
+    {"id": "RULE-SUB-003", "title": "Expense Type", "description": "必须选择正确的 Expense Type，错误分类将导致拒报。", "severity": "warning"}
+  ],
+  "keywords": ["concur", "submit", "expense report", "提交", "30 days", "cost center"]
+}

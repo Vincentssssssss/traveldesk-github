@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GC TE Policy 学习中心</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .tab-active { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 600; }
+    .card-flip { perspective: 1000px; cursor: pointer; min-height: 200px; }
+    .card-inner { transition: transform 0.5s; transform-style: preserve-3d; position: relative; width: 100%; min-height: 200px; }
+    .card-flip.flipped .card-inner { transform: rotateY(180deg); }
+    .card-front, .card-back { backface-visibility: hidden; position: absolute; width: 100%; min-height: 200px; }
+    .card-back { transform: rotateY(180deg); }
+    .severity-critical { border-left: 4px solid #ef4444; }
+    .severity-warning { border-left: 4px solid #f59e0b; }
+    .severity-info { border-left: 4px solid #3b82f6; }
+    .fade-in { animation: fadeIn 0.3s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<!-- Header -->
+<header class="bg-gradient-to-r from-blue-900 to-blue-700 text-white shadow-lg">
+  <div class="max-w-7xl mx-auto px-4 py-5 flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold">GC TE Policy 学习中心</h1>
+      <p class="text-blue-200 text-sm mt-1">BCG Global China Travel & Expense Policy · v202212</p>
+    </div>
+    <div class="flex gap-3">
+      <a href="/" class="text-sm bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition">← TravelDesk</a>
+      <button onclick="showUpload()" class="text-sm bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition">上传 PDF</button>
+    </div>
+  </div>
+</header>
+
+<div class="max-w-7xl mx-auto px-4 py-6">
+  <!-- Stats Bar -->
+  <div id="stats-bar" class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6"></div>
+
+  <!-- Search -->
+  <div class="mb-6">
+    <div class="relative">
+      <input id="search-input" type="text" placeholder="搜索政策、规则、术语... (如: 商务舱, fapiao, nightly cap)"
+        class="w-full px-5 py-3 pl-12 rounded-xl border border-gray-200 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+        onkeydown="if(event.key==='Enter') doSearch()">
+      <svg class="absolute left-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+    </div>
+    <div id="search-results" class="mt-3 hidden"></div>
+  </div>
+
+  <!-- Tabs -->
+  <nav class="flex gap-6 border-b border-gray-200 mb-6 overflow-x-auto">
+    <button onclick="switchTab('chapters')" id="tab-chapters" class="tab-active pb-3 px-1 text-sm whitespace-nowrap">📚 章节学习</button>
+    <button onclick="switchTab('paths')" id="tab-paths" class="pb-3 px-1 text-sm text-gray-500 whitespace-nowrap">🎯 学习路径</button>
+    <button onclick="switchTab('flashcards')" id="tab-flashcards" class="pb-3 px-1 text-sm text-gray-500 whitespace-nowrap">🃏 闪卡自测</button>
+    <button onclick="switchTab('scenarios')" id="tab-scenarios" class="pb-3 px-1 text-sm text-gray-500 whitespace-nowrap">💼 情景案例</button>
+    <button onclick="switchTab('glossary')" id="tab-glossary" class="pb-3 px-1 text-sm text-gray-500 whitespace-nowrap">📖 术语表</button>
+    <button onclick="switchTab('reference')" id="tab-reference" class="pb-3 px-1 text-sm text-gray-500 whitespace-nowrap">⚡ 速查表</button>
+    <button onclick="switchTab('decisions')" id="tab-decisions" class="pb-3 px-1 text-sm text-gray-500 whitespace-nowrap">🌳 决策树</button>
+  </nav>
+
+  <!-- Content Panels -->
+  <div id="panel-chapters" class="fade-in"></div>
+  <div id="panel-paths" class="hidden fade-in"></div>
+  <div id="panel-flashcards" class="hidden fade-in"></div>
+  <div id="panel-scenarios" class="hidden fade-in"></div>
+  <div id="panel-glossary" class="hidden fade-in"></div>
+  <div id="panel-reference" class="hidden fade-in"></div>
+  <div id="panel-decisions" class="hidden fade-in"></div>
+  <div id="panel-chapter-detail" class="hidden fade-in"></div>
+</div>
+
+<!-- Upload Modal -->
+<div id="upload-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+    <h3 class="text-lg font-bold mb-4">上传 GC TE Policy PDF</h3>
+    <p class="text-sm text-gray-500 mb-4">上传 PDF 后将自动解析并更新知识库内容</p>
+    <input type="file" id="pdf-file" accept=".pdf" class="mb-4 w-full text-sm">
+    <div class="flex gap-3 justify-end">
+      <button onclick="hideUpload()" class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">取消</button>
+      <button onclick="uploadPdf()" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">上传并解析</button>
+    </div>
+    <div id="upload-status" class="mt-3 text-sm hidden"></div>
+  </div>
+</div>
+
+<script>
+const API = '/api/kb';
+let currentTab = 'chapters';
+let flashcardIndex = 0;
+let flashcardDeck = [];
+
+async function api(path) {
+  const res = await fetch(API + path);
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function init() {
+  try {
+    const overview = await api('/overview');
+    renderStats(overview);
+    renderChapters();
+    renderPaths(overview.learning_paths);
+  } catch (e) {
+    document.getElementById('stats-bar').innerHTML = `<div class="col-span-5 text-red-500 p-4">加载失败: ${e.message}</div>`;
+  }
+}
+
+function renderStats(data) {
+  const m = data.meta;
+  const items = [
+    { label: '章节', value: m.total_chapters, icon: '📚' },
+    { label: '规则', value: m.total_rules, icon: '📋' },
+    { label: '闪卡', value: m.total_flashcards, icon: '🃏' },
+    { label: '术语', value: m.total_glossary_terms, icon: '📖' },
+    { label: '案例', value: m.total_scenarios, icon: '💼' },
+  ];
+  document.getElementById('stats-bar').innerHTML = items.map(i => `
+    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
+      <div class="text-2xl">${i.icon}</div>
+      <div class="text-2xl font-bold text-blue-700 mt-1">${i.value}</div>
+      <div class="text-xs text-gray-500">${i.label}</div>
+    </div>`).join('');
+}
+
+async function renderChapters() {
+  const data = await api('/chapters');
+  const cats = {};
+  data.chapters.forEach(ch => {
+    if (!cats[ch.category]) cats[ch.category] = [];
+    cats[ch.category].push(ch);
+  });
+  const catNames = { general: '总则', travel: '差旅', expense: '费用', submission: '提交', compliance: '合规', china: '中国区' };
+  let html = '';
+  for (const [cat, chapters] of Object.entries(cats)) {
+    html += `<div class="mb-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">${catNames[cat] || cat}</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">`;
+    for (const ch of chapters) {
+      html += `<div onclick="showChapter('${ch.id}')" class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 cursor-pointer transition">
+        <div class="text-xs text-blue-600 font-medium mb-1">Chapter ${ch.order || ''}</div>
+        <h4 class="font-semibold text-gray-800">${ch.title}</h4>
+        <p class="text-sm text-gray-500 mt-1">${ch.title_en || ''}</p>
+      </div>`;
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('panel-chapters').innerHTML = html;
+}
+
+async function showChapter(id) {
+  const ch = await api(`/chapters/${id}`);
+  document.getElementById('panel-chapters').classList.add('hidden');
+  document.querySelectorAll('[id^="panel-"]').forEach(p => { if (p.id !== 'panel-chapter-detail') p.classList.add('hidden'); });
+  document.getElementById('panel-chapter-detail').classList.remove('hidden');
+
+  let html = `<button onclick="backToChapters()" class="text-sm text-blue-600 hover:underline mb-4">← 返回章节列表</button>
+    <div class="bg-white rounded-xl shadow-sm border p-6 mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">${ch.title}</h2>
+      <p class="text-gray-500 mt-1">${ch.title_en || ''}</p>
+      <p class="mt-3 text-gray-700">${ch.summary || ''}</p>
+    </div>`;
+
+  for (const sec of (ch.sections || [])) {
+    html += `<div class="bg-white rounded-xl shadow-sm border p-6 mb-4">
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">${sec.title}</h3>
+      <div class="prose prose-sm max-w-none text-gray-700 whitespace-pre-line">${formatContent(sec.content)}</div>
+      ${sec.key_points ? `<div class="flex flex-wrap gap-2 mt-4">${sec.key_points.map(kp => `<span class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full">${kp}</span>`).join('')}</div>` : ''}
+    </div>`;
+  }
+
+  if (ch.rules && ch.rules.length) {
+    html += `<div class="bg-white rounded-xl shadow-sm border p-6 mb-4"><h3 class="text-lg font-semibold mb-3">规则清单</h3>`;
+    for (const rule of ch.rules) {
+      html += `<div class="p-3 mb-2 rounded-lg bg-gray-50 severity-${rule.severity || 'info'}">
+        <span class="text-xs font-mono text-gray-400">${rule.id}</span>
+        <span class="font-medium ml-2">${rule.title}</span>
+        <p class="text-sm text-gray-600 mt-1">${rule.description}</p>
+      </div>`;
+    }
+    html += '</div>';
+  }
+
+  document.getElementById('panel-chapter-detail').innerHTML = html;
+}
+
+function backToChapters() {
+  document.getElementById('panel-chapter-detail').classList.add('hidden');
+  document.getElementById('panel-chapters').classList.remove('hidden');
+}
+
+function formatContent(text) {
+  return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\|(.+)\|/g, (m) => m);
+}
+
+function renderPaths(paths) {
+  document.getElementById('panel-paths').innerHTML = paths.map(p => `
+    <div class="bg-white rounded-xl p-6 shadow-sm border mb-4 cursor-pointer hover:border-blue-200 transition" onclick="loadPath('${p.id}')">
+      <h3 class="font-semibold text-lg">${p.name}</h3>
+      <p class="text-sm text-gray-500 mt-1">${p.description}</p>
+      <div class="flex gap-1 mt-3">${p.steps.map((s,i) => `<span class="text-xs bg-gray-100 px-2 py-1 rounded">${i+1}. ${s}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+async function loadPath(id) {
+  const data = await api(`/learning-path/${id}`);
+  switchTab('paths');
+  document.getElementById('panel-paths').innerHTML = `
+    <button onclick="init(); switchTab('paths')" class="text-sm text-blue-600 hover:underline mb-4">← 返回路径列表</button>
+    <h2 class="text-xl font-bold mb-4">${data.path.name}</h2>
+    ${data.chapters.map((ch, i) => `
+      <div class="bg-white rounded-xl p-5 shadow-sm border mb-3 cursor-pointer hover:border-blue-200" onclick="showChapter('${ch.id}')">
+        <span class="text-xs text-blue-600">Step ${i+1}</span>
+        <h4 class="font-semibold">${ch.title}</h4>
+        <p class="text-sm text-gray-500">${ch.summary || ''}</p>
+      </div>`).join('')}`;
+}
+
+async function renderFlashcards() {
+  const data = await api('/flashcards');
+  flashcardDeck = data.flashcards;
+  flashcardIndex = 0;
+  showFlashcard();
+}
+
+function showFlashcard() {
+  if (!flashcardDeck.length) return;
+  const card = flashcardDeck[flashcardIndex];
+  document.getElementById('panel-flashcards').innerHTML = `
+    <div class="text-center mb-4">
+      <span class="text-sm text-gray-500">${flashcardIndex + 1} / ${flashcardDeck.length}</span>
+      <span class="ml-3 text-xs px-2 py-1 rounded-full ${card.difficulty === 'hard' ? 'bg-red-100 text-red-700' : card.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}">${card.difficulty}</span>
+    </div>
+    <div class="card-flip max-w-lg mx-auto" id="fc-card" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-front bg-white rounded-2xl shadow-lg border-2 border-blue-100 p-8 flex items-center justify-center">
+          <p class="text-lg font-medium text-gray-800 text-center">${card.front}</p>
+          <p class="absolute bottom-4 text-xs text-gray-400">点击翻转</p>
+        </div>
+        <div class="card-back bg-blue-50 rounded-2xl shadow-lg border-2 border-blue-200 p-8 flex items-center justify-center">
+          <p class="text-base text-gray-700 text-center">${card.back}</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center gap-4 mt-6">
+      <button onclick="prevCard()" class="px-6 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm">← 上一题</button>
+      <button onclick="nextCard()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">下一题 →</button>
+    </div>`;
+}
+
+function prevCard() { flashcardIndex = (flashcardIndex - 1 + flashcardDeck.length) % flashcardDeck.length; showFlashcard(); }
+function nextCard() { flashcardIndex = (flashcardIndex + 1) % flashcardDeck.length; showFlashcard(); }
+
+async function renderScenarios() {
+  const data = await api('/scenarios');
+  document.getElementById('panel-scenarios').innerHTML = data.scenarios.map((s, i) => `
+    <div class="bg-white rounded-xl shadow-sm border mb-4 overflow-hidden">
+      <div class="p-5 cursor-pointer hover:bg-gray-50" onclick="document.getElementById('sc-${i}').classList.toggle('hidden')">
+        <div class="flex items-center justify-between">
+          <h4 class="font-semibold">${s.title}</h4>
+          <span class="text-xs px-2 py-1 rounded-full ${s.difficulty === 'hard' ? 'bg-red-100 text-red-700' : s.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}">${s.difficulty}</span>
+        </div>
+        <p class="text-sm text-gray-600 mt-2">${s.situation}</p>
+        <p class="text-sm font-medium text-blue-600 mt-2">❓ ${s.question}</p>
+      </div>
+      <div id="sc-${i}" class="hidden border-t bg-blue-50 p-5">
+        <p class="text-sm font-medium text-green-700 mb-2">✅ 参考答案</p>
+        <p class="text-sm text-gray-700 whitespace-pre-line">${s.answer}</p>
+        ${s.related_rules ? `<div class="flex flex-wrap gap-1 mt-3">${s.related_rules.map(r => `<span class="text-xs bg-white px-2 py-1 rounded border">${r}</span>`).join('')}</div>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+async function renderGlossary() {
+  const data = await api('/glossary');
+  document.getElementById('panel-glossary').innerHTML = `
+    <div class="grid md:grid-cols-2 gap-3">${data.terms.map(t => `
+      <div class="bg-white rounded-lg p-4 shadow-sm border">
+        <div class="font-semibold text-gray-800">${t.term} <span class="text-sm font-normal text-gray-400">${t.term_zh || ''}</span></div>
+        <p class="text-sm text-gray-600 mt-1">${t.definition}</p>
+      </div>`).join('')}
+    </div>`;
+}
+
+async function renderReference() {
+  const data = await api('/quick-reference');
+  const qr = data.quick_reference;
+  let html = '';
+  for (const [key, section] of Object.entries(qr)) {
+    if (key === 'do_dont') {
+      html += `<div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-green-50 rounded-xl p-5 border border-green-200"><h3 class="font-semibold text-green-800 mb-3">✅ Do's</h3><ul class="space-y-1">${section.dos.map(d => `<li class="text-sm text-green-700">• ${d}</li>`).join('')}</ul></div>
+        <div class="bg-red-50 rounded-xl p-5 border border-red-200"><h3 class="font-semibold text-red-800 mb-3">❌ Don'ts</h3><ul class="space-y-1">${section.donts.map(d => `<li class="text-sm text-red-700">• ${d}</li>`).join('')}</ul></div>
+      </div>`;
+    } else {
+      html += `<div class="bg-white rounded-xl p-5 shadow-sm border mb-4"><h3 class="font-semibold mb-3">${section.title}</h3>
+        <div class="grid md:grid-cols-2 gap-2">${section.items.map(item => `
+          <div class="flex justify-between p-2 bg-gray-50 rounded-lg text-sm">
+            <span class="text-gray-600">${item.label}</span>
+            <span class="font-medium text-blue-700">${item.value}</span>
+          </div>`).join('')}
+        </div></div>`;
+    }
+  }
+  document.getElementById('panel-reference').innerHTML = html;
+}
+
+async function renderDecisions() {
+  const data = await api('/decision-trees');
+  document.getElementById('panel-decisions').innerHTML = data.decision_trees.map(t => `
+    <div class="bg-white rounded-xl p-5 shadow-sm border mb-4 cursor-pointer hover:border-blue-200" onclick="showTree('${t.id}')">
+      <h4 class="font-semibold">🌳 ${t.title}</h4>
+      <p class="text-sm text-gray-500 mt-1">${t.description}</p>
+    </div>`).join('');
+}
+
+async function showTree(id) {
+  const tree = await api(`/decision-tree/${id}`);
+  document.getElementById('panel-decisions').innerHTML = `
+    <button onclick="renderDecisions()" class="text-sm text-blue-600 hover:underline mb-4">← 返回</button>
+    <h2 class="text-xl font-bold mb-4">${tree.title}</h2>
+    <div id="tree-container" class="bg-white rounded-xl p-6 shadow-sm border"></div>`;
+  renderTreeNode(tree.root, document.getElementById('tree-container'));
+}
+
+function renderTreeNode(node, container) {
+  if (node.result) {
+    container.innerHTML += `<div class="p-4 rounded-lg ${node.result.includes('❌') ? 'bg-red-50 border-red-200' : node.result.includes('⚠️') ? 'bg-yellow-50 border-yellow-200' : 'bg-green-50 border-green-200'} border mb-3">
+      <p class="font-semibold">${node.result}</p>
+      ${node.rule ? `<p class="text-xs text-gray-500 mt-1">${node.rule}</p>` : ''}
+      ${node.note ? `<p class="text-sm text-gray-600 mt-1">${node.note}</p>` : ''}
+    </div>`;
+    return;
+  }
+  if (node.question) {
+    const div = document.createElement('div');
+    div.className = 'mb-4';
+    div.innerHTML = `<p class="font-medium text-gray-800 mb-2">${node.question}</p>`;
+    if (node.yes && node.no) {
+      div.innerHTML += `<div class="flex gap-3">
+        <button onclick="renderTreeNode(${JSON.stringify(node.yes).replace(/"/g, '&quot;')}, this.parentElement.nextElementSibling)" class="px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm hover:bg-green-200">是 Yes</button>
+        <button onclick="renderTreeNode(${JSON.stringify(node.no).replace(/"/g, '&quot;')}, this.parentElement.nextElementSibling)" class="px-4 py-2 bg-red-100 text-red-800 rounded-lg text-sm hover:bg-red-200">否 No</button>
+      </div><div class="mt-3 ml-4"></div>`;
+    } else if (node.options) {
+      div.innerHTML += `<div class="flex flex-wrap gap-2">${Object.entries(node.options).map(([k, v]) =>
+        `<button onclick="renderTreeNode(${JSON.stringify(v).replace(/"/g, '&quot;')}, this.parentElement.nextElementSibling)" class="px-3 py-2 bg-blue-50 text-blue-800 rounded-lg text-sm hover:bg-blue-100">${k}</button>`
+      ).join('')}</div><div class="mt-3 ml-4"></div>`;
+    }
+    container.appendChild(div);
+  }
+}
+
+async function doSearch() {
+  const q = document.getElementById('search-input').value.trim();
+  if (!q) return;
+  const data = await api(`/search?q=${encodeURIComponent(q)}`);
+  const el = document.getElementById('search-results');
+  el.classList.remove('hidden');
+  if (!data.results.length) {
+    el.innerHTML = '<p class="text-sm text-gray-500 p-3">未找到匹配结果</p>';
+    return;
+  }
+  el.innerHTML = `<div class="bg-white rounded-xl shadow-sm border divide-y">${data.results.map(r => `
+    <div class="p-3 hover:bg-gray-50 cursor-pointer" onclick="${r.type === 'chapter' ? `showChapter('${r.id}')` : ''}">
+      <span class="text-xs px-2 py-0.5 rounded-full ${r.type === 'chapter' ? 'bg-blue-100 text-blue-700' : r.type === 'rule' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'}">${r.type}</span>
+      <span class="font-medium ml-2">${r.title}</span>
+      <p class="text-sm text-gray-500 mt-1">${r.summary}</p>
+    </div>`).join('')}</div>`;
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('[id^="tab-"]').forEach(t => { t.classList.remove('tab-active'); t.classList.add('text-gray-500'); });
+  document.getElementById('tab-' + tab).classList.add('tab-active');
+  document.getElementById('tab-' + tab).classList.remove('text-gray-500');
+  document.querySelectorAll('[id^="panel-"]').forEach(p => p.classList.add('hidden'));
+  document.getElementById('panel-' + tab).classList.remove('hidden');
+  document.getElementById('panel-chapter-detail').classList.add('hidden');
+
+  const loaders = { chapters: renderChapters, paths: () => {}, flashcards: renderFlashcards, scenarios: renderScenarios, glossary: renderGlossary, reference: renderReference, decisions: renderDecisions };
+  if (loaders[tab]) loaders[tab]();
+}
+
+function showUpload() { document.getElementById('upload-modal').classList.remove('hidden'); }
+function hideUpload() { document.getElementById('upload-modal').classList.add('hidden'); }
+
+async function uploadPdf() {
+  const file = document.getElementById('pdf-file').files[0];
+  if (!file) return;
+  const status = document.getElementById('upload-status');
+  status.classList.remove('hidden');
+  status.textContent = '上传中...';
+  const form = new FormData();
+  form.append('file', file);
+  try {
+    const res = await fetch(API + '/upload', { method: 'POST', body: form });
+    const data = await res.json();
+    status.textContent = data.status === 'success' ? '✅ 上传成功，知识库已更新' : `⚠️ ${data.error || data.status}`;
+    if (data.status === 'success') setTimeout(() => { hideUpload(); init(); }, 2000);
+  } catch (e) {
+    status.textContent = '❌ 上传失败: ' + e.message;
+  }
+}
+
+init();
+</script>
+</body>
+</html>

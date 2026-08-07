@@ -1,0 +1,37 @@
+{
+  "id": "ch07",
+  "title": "餐饮与日常津贴",
+  "title_en": "Meals & Daily Allowances",
+  "category": "expense",
+  "summary": "按国内/国际设定 daily meal allowance，超限额需收据，Team Meal 需 Manager 批准。",
+  "sections": [
+    {
+      "id": "ch07-s01",
+      "title": "Daily Meal Allowance",
+      "content": "| 类型 | 国内 | 国际 |\n|------|------|------|\n| 全天 Allowance | ¥300/day | $75/day |\n| 早餐 | ¥50 | $15 |\n| 午餐 | ¥100 | $25 |\n| 晚餐 | ¥150 | $35 |\n\n- Allowance 内无需收据\n- 超出 Allowance 的部分需收据 + Manager 批准\n- 单餐 >¥200/$50 无论是否超 Allowance 均需收据",
+      "key_points": ["国内¥300/天", "国际$75/天", "超额需收据"],
+      "related_rules": ["RULE-MEAL-001", "RULE-MEAL-002"]
+    },
+    {
+      "id": "ch07-s02",
+      "title": "Team Meal",
+      "content": "- Case Team 内部用餐：计入 Daily Allowance\n- **Team Dinner**（项目团队聚餐）：\n  - ≤6 人：Project Leader 批准\n  - >6 人：Office Head 批准\n  - 人均上限：¥300/$75\n  - 需注明参与人员和项目\n- 频率：每项目每两周最多一次 Team Dinner",
+      "key_points": ["Team Dinner需批准", "人均限额", "频率限制"],
+      "related_rules": ["RULE-MEAL-003"]
+    },
+    {
+      "id": "ch07-s03",
+      "title": "Alcohol 政策",
+      "content": "- **Client Entertainment** 中可含适量酒精饮料\n- **Team Meal** 中酒精不可报销\n- **个人用餐** 中酒精不可报销\n- 任何情况下不得过度饮酒（影响工作表现）",
+      "key_points": ["Client可含酒精", "Team/Personal不可", "禁止过度"],
+      "related_rules": ["RULE-MEAL-004"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-MEAL-001", "title": "Daily Allowance", "description": "Allowance 内费用无需收据，但须在 Concur 中正确分类。", "severity": "info"},
+    {"id": "RULE-MEAL-002", "title": "收据阈值", "description": "单餐超过 ¥200/$50 必须附收据，无论是否在 Allowance 内。", "severity": "warning"},
+    {"id": "RULE-MEAL-003", "title": "Team Dinner", "description": "Team Dinner 需 Pre-approval，注明参与人员和业务目的。", "severity": "warning"},
+    {"id": "RULE-MEAL-004", "title": "Alcohol", "description": "仅 Client Entertainment 可报销酒精，Team/Personal 不可。", "severity": "critical"}
+  ],
+  "keywords": ["meal", "餐饮", "allowance", "per diem", "team dinner", "alcohol"]
+}

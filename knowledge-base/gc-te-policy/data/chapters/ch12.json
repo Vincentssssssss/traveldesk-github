@@ -1,0 +1,44 @@
+{
+  "id": "ch12",
+  "title": "中国区特殊规定",
+  "title_en": "China-Specific Requirements",
+  "category": "china",
+  "summary": "中国区特有的发票(Fapiao)、VAT、本地支付工具和合规要求。",
+  "sections": [
+    {
+      "id": "ch12-s01",
+      "title": "发票 (Fapiao) 要求",
+      "content": "**所有中国区报销必须提供正规发票**：\n\n1. **增值税专用/普通发票** — 首选\n2. **电子发票** — 2022年起广泛接受，需 PDF 原件\n3. **发票抬头**：必须为公司全称\n   - 北京：波士顿咨询（上海）有限公司北京分公司\n   - 上海：波士顿咨询（上海）有限公司\n   - 深圳：波士顿咨询（上海）有限公司深圳分公司\n4. **发票内容**：须与实际消费一致\n5. **禁止**：收据 (Receipt)、手写条、无发票的白条\n\n**例外**：\n- 海外消费：原始 Receipt 可接受\n- Allowance 内餐饮：无需发票\n- Didi/企业账户直接结算：无需个人发票",
+      "key_points": ["增值税发票", "公司抬头", "电子发票可接受", "禁止白条"],
+      "related_rules": ["RULE-CN-001"]
+    },
+    {
+      "id": "ch12-s02",
+      "title": "VAT 处理",
+      "content": "- 增值税专用发票：公司可抵扣进项税\n- 普通发票：不可抵扣，全额计入费用\n- Concur 中正确标记 VAT Amount\n- GFOS 负责 VAT 合规和申报\n- 员工无需自行处理 VAT，但需确保发票类型正确",
+      "key_points": ["专票可抵扣", "普票不可", "Concur标记VAT"],
+      "related_rules": ["RULE-CN-002"]
+    },
+    {
+      "id": "ch12-s03",
+      "title": "本地支付工具",
+      "content": "| 工具 | 用途 | 报销方式 |\n|------|------|--------|\n| Didi 企业版 | 网约车 | 企业账户直接结算 |\n| 高德企业版 | 网约车 | 企业账户直接结算 |\n| 支付宝/微信 (企业) | 部分商户 | 企业账户 |\n| 个人支付宝/微信 | 紧急 | 需发票 + Concur 报销 |\n| Corporate Card (Amex) | 通用 | 自动导入 Concur |\n\n**优先使用企业账户**，减少个人垫付和报销流程。",
+      "key_points": ["Didi企业版", "企业账户优先", "个人垫付需发票"],
+      "related_rules": ["RULE-CN-003"]
+    },
+    {
+      "id": "ch12-s04",
+      "title": "TripSource China 集成",
+      "content": "- 中国区 OBT (Online Booking Tool) 为 TripSource China\n- 支持 SSO 登录 (WeChat for Work)\n- 与 Concur 双向同步行程和费用\n- 支持 Concur Request Pre-approval 集成\n- 默认推荐高铁（Air-to-Rail）\n- 内置 Carbon Budget 显示",
+      "key_points": ["TripSource China", "WeChat SSO", "Concur集成", "Carbon Budget"],
+      "related_rules": ["RULE-CN-004"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-CN-001", "title": "Fapiao 必须", "description": "中国区所有 Out-of-pocket 报销必须附正规发票。", "severity": "critical"},
+    {"id": "RULE-CN-002", "title": "VAT 标记", "description": "Concur 中须正确填写 VAT 金额和发票类型。", "severity": "warning"},
+    {"id": "RULE-CN-003", "title": "企业账户", "description": "优先使用 Didi/高德企业账户，避免个人垫付。", "severity": "info"},
+    {"id": "RULE-CN-004", "title": "TripSource", "description": "中国区预订应使用 TripSource China。", "severity": "warning"}
+  ],
+  "keywords": ["china", "fapiao", "发票", "VAT", "didi", "TripSource", "WeChat", "中国"]
+}

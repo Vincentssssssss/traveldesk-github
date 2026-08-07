@@ -1,0 +1,37 @@
+{
+  "id": "ch06",
+  "title": "差旅预订与审批",
+  "title_en": "Travel Booking & Pre-approval",
+  "category": "travel",
+  "summary": "所有差旅须通过 Amex GBT/TripSource 预订，国际出差和 Out-of-Policy 需 Pre-trip Approval。",
+  "sections": [
+    {
+      "id": "ch06-s01",
+      "title": "预订渠道",
+      "content": "**Primary Channel**: Amex GBT (American Express Global Business Travel)\n**China OBT**: TripSource China\n**Mobile**: Amex GBT App / TripSource App\n\n所有机票、酒店、火车票应通过上述渠道预订。系统会自动：\n- 应用公司协议价\n- 标记 Out-of-Policy 项目\n- 同步行程至 Concur\n- 计算碳排放",
+      "key_points": ["Amex GBT", "TripSource China", "自动同步Concur"],
+      "related_rules": ["RULE-BOOK-001"]
+    },
+    {
+      "id": "ch06-s02",
+      "title": "Pre-trip Approval 要求",
+      "content": "以下情况需 **Pre-trip Approval**（通过 Concur Request 或邮件）：\n\n1. 国际出差（所有目的地）\n2. Out-of-Policy 舱位/酒店\n3. Last-minute 预订 (<7天)\n4. 非 Preferred Vendor\n5. 租车\n6. 出差 >14 天\n7. 高风险目的地 (Level 2+)\n\n审批链：Line Manager → (如需) Office Head → GFOS T&E",
+      "key_points": ["国际必批", "Out-of-Policy必批", "审批链"],
+      "related_rules": ["RULE-BOOK-002", "RULE-BOOK-003"]
+    },
+    {
+      "id": "ch06-s03",
+      "title": "Travel Registration",
+      "content": "国际出差员工须完成：\n\n1. **Concur Request** 提交并获批\n2. **Travel Registration Form** 填写\n3. **Travel Risk Assessment**（Level 2+ 目的地）\n4. 确保 **Travel Insurance** 生效\n5. 更新 **Emergency Contact** 信息",
+      "key_points": ["Concur Request", "Risk Assessment", "Travel Insurance"],
+      "related_rules": ["RULE-BOOK-004"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-BOOK-001", "title": "指定渠道", "description": "禁止通过携程/飞猪等个人渠道自行预订（除非 Pre-approved）。", "severity": "critical"},
+    {"id": "RULE-BOOK-002", "title": "国际 Pre-approval", "description": "所有国际出差必须 Pre-trip Approval。", "severity": "critical"},
+    {"id": "RULE-BOOK-003", "title": "Concur Request", "description": "Pre-approval 应通过 Concur Request 提交，保留审批记录。", "severity": "warning"},
+    {"id": "RULE-BOOK-004", "title": "Travel Registration", "description": "国际出差未完成 Registration 的费用可能被拒。", "severity": "warning"}
+  ],
+  "keywords": ["booking", "pre-approval", "Amex GBT", "TripSource", "Concur Request", "预订"]
+}

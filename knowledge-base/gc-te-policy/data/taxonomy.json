@@ -1,0 +1,83 @@
+{
+  "taxonomy": {
+    "version": "1.0",
+    "root": {
+      "id": "gc-te-policy",
+      "name": "GC TE Policy Knowledge Base",
+      "children": [
+        {
+          "id": "general",
+          "name": "总则与原则",
+          "name_en": "General Principles",
+          "tags": ["scope", "principles", "responsibilities", "definitions"],
+          "children": [
+            {"id": "scope", "name": "适用范围", "keywords": ["适用", "scope", "eligible", "who"]},
+            {"id": "principles", "name": "核心原则", "keywords": ["原则", "reasonable", "prudent", "cost-effective"]},
+            {"id": "responsibilities", "name": "员工职责", "keywords": ["职责", "responsibility", "compliance", "duty"]}
+          ]
+        },
+        {
+          "id": "travel",
+          "name": "差旅管理",
+          "name_en": "Travel Management",
+          "tags": ["air", "rail", "hotel", "ground", "booking"],
+          "children": [
+            {"id": "air", "name": "航空", "keywords": ["flight", "机票", "class", "舱位", "airline"]},
+            {"id": "rail", "name": "铁路", "keywords": ["train", "高铁", "rail", "火车"]},
+            {"id": "ground", "name": "地面交通", "keywords": ["taxi", "uber", "didi", "租车", "mileage"]},
+            {"id": "hotel", "name": "酒店", "keywords": ["hotel", "住宿", "per diem", "cap", "rate"]},
+            {"id": "booking", "name": "预订流程", "keywords": ["booking", "预订", "Amex GBT", "pre-approval", "TripSource"]}
+          ]
+        },
+        {
+          "id": "expense",
+          "name": "费用报销",
+          "name_en": "Expense Reimbursement",
+          "tags": ["meals", "entertainment", "incidentals", "non-reimbursable"],
+          "children": [
+            {"id": "meals", "name": "餐饮津贴", "keywords": ["meal", "餐饮", "per diem", "allowance", "receipt"]},
+            {"id": "entertainment", "name": "客户招待", "keywords": ["client", "entertainment", "招待", "business meal"]},
+            {"id": "incidentals", "name": "杂费", "keywords": ["incidental", "杂费", "laundry", "phone", "tip"]},
+            {"id": "non-reimbursable", "name": "不可报销", "keywords": ["non-reimbursable", "personal", "不可报销", "prohibited"]}
+          ]
+        },
+        {
+          "id": "submission",
+          "name": "提交流程",
+          "name_en": "Submission Process",
+          "tags": ["concur", "chrome river", "receipt", "deadline", "coding"],
+          "children": [
+            {"id": "concur", "name": "Concur 系统", "keywords": ["concur", "expense report", "提报", "submit"]},
+            {"id": "receipts", "name": "发票与收据", "keywords": ["receipt", "发票", "fapiao", "VAT", "凭证"]},
+            {"id": "coding", "name": "费用编码", "keywords": ["cost center", "project code", "WBS", "编码"]},
+            {"id": "timeline", "name": "提交时限", "keywords": ["deadline", "30 days", "时限", "late submission"]}
+          ]
+        },
+        {
+          "id": "compliance",
+          "name": "合规与审计",
+          "name_en": "Compliance & Audit",
+          "tags": ["approval", "audit", "violation", "exception"],
+          "children": [
+            {"id": "approval", "name": "审批层级", "keywords": ["approval", "manager", "审批", "pre-approval"]},
+            {"id": "audit", "name": "审计流程", "keywords": ["audit", "GFOS", "审计", "review", "spot check"]},
+            {"id": "violation", "name": "违规处理", "keywords": ["violation", "out-of-policy", "违规", "rejection"]},
+            {"id": "exception", "name": "例外申请", "keywords": ["exception", "waiver", "例外", "override"]}
+          ]
+        },
+        {
+          "id": "china",
+          "name": "中国区特殊规定",
+          "name_en": "China-Specific Rules",
+          "tags": ["fapiao", "vat", "rmb", "wechat", "local"],
+          "children": [
+            {"id": "fapiao", "name": "发票管理", "keywords": ["fapiao", "增值税发票", "电子发票", "invoice"]},
+            {"id": "vat", "name": "增值税", "keywords": ["VAT", "进项税", "tax", "税率"]},
+            {"id": "local-currency", "name": "本地货币", "keywords": ["RMB", "CNY", "汇率", "exchange rate"]},
+            {"id": "local-tools", "name": "本地工具", "keywords": ["WeChat", "Didi", "支付宝", "TripSource China"]}
+          ]
+        }
+      ]
+    }
+  }
+}

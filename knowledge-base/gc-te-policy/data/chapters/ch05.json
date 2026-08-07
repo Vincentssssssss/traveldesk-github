@@ -1,0 +1,36 @@
+{
+  "id": "ch05",
+  "title": "酒店住宿政策",
+  "title_en": "Hotel & Accommodation",
+  "category": "travel",
+  "summary": "按城市等级设定 nightly cap，Preferred Hotel 优先，Mini-bar 和个人消费不可报销。",
+  "sections": [
+    {
+      "id": "ch05-s01",
+      "title": "住宿限额 (Nightly Cap)",
+      "content": "| 城市等级 | 限额 (含税) | 示例城市 |\n|---------|------------|--------|\n| Tier 1 | ¥1,200/night | 北京、上海、深圳、香港 |\n| Tier 2 | ¥900/night | 广州、杭州、成都、南京 |\n| Tier 3 | ¥700/night | 其他省会城市 |\n| Tier 4 | ¥550/night | 二三线城市 |\n| 国际 Tier 1 | $350/night | NYC, London, Tokyo, Singapore |\n| 国际 Tier 2 | $250/night | 其他国际城市 |\n\n超限额需 Manager Pre-approval，并说明原因（如会议酒店、无其他选择）。",
+      "key_points": ["按城市分级", "含税价", "超限额需审批"],
+      "related_rules": ["RULE-HOTEL-001"]
+    },
+    {
+      "id": "ch05-s02",
+      "title": "Preferred Hotel Partners",
+      "content": "优先预订以下集团酒店（公司协议价）：\n\n- **Marriott** (含 Sheraton, Westin, Courtyard)\n- **Hilton** (含 Conrad, DoubleTree)\n- **Hyatt**\n- **IHG** (含 InterContinental, Holiday Inn)\n- **华住** (国内出差)\n\n非 Preferred 酒店需附价格对比，证明 Preferred 不可用或价格更高。",
+      "key_points": ["四大国际集团+华住", "协议价", "非Preferred需对比"],
+      "related_rules": ["RULE-HOTEL-002"]
+    },
+    {
+      "id": "ch05-s03",
+      "title": "不可报销项目",
+      "content": "以下酒店费用**不可报销**：\n\n- Mini-bar 消费\n- 电影/VOD 点播\n- Spa/按摩\n- 个人洗衣（出差 ≥5 天可报销一次）\n- 客房升级（个人支付部分）\n- 早退/延住产生的额外费用（个人原因）\n- 损坏赔偿",
+      "key_points": ["Mini-bar不可报", "Spa不可报", "≥5天可洗衣"],
+      "related_rules": ["RULE-HOTEL-003"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-HOTEL-001", "title": "Nightly Cap", "description": "住宿费不得超过对应城市等级的 nightly cap。", "severity": "critical"},
+    {"id": "RULE-HOTEL-002", "title": "Preferred Hotel", "description": "Preferred 酒店有协议价，应优先选择。", "severity": "warning"},
+    {"id": "RULE-HOTEL-003", "title": "Mini-bar 禁止", "description": "Mini-bar 所有消费均为个人费用。", "severity": "critical"}
+  ],
+  "keywords": ["hotel", "住宿", "nightly cap", "preferred hotel", "marriott", "hilton"]
+}

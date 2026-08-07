@@ -1,0 +1,63 @@
+{
+  "quick_reference": {
+    "limits": {
+      "title": "关键限额速查",
+      "items": [
+        {"label": "国内 Daily Meal Allowance", "value": "¥300/day", "chapter": "ch07"},
+        {"label": "国际 Daily Meal Allowance", "value": "$75/day", "chapter": "ch07"},
+        {"label": "上海/北京 Hotel Cap", "value": "¥1,200/night", "chapter": "ch05"},
+        {"label": "广州/杭州 Hotel Cap", "value": "¥900/night", "chapter": "ch05"},
+        {"label": "国际 Tier 1 Hotel Cap", "value": "$350/night", "chapter": "ch05"},
+        {"label": "Client Dinner 人均", "value": "¥800/$150", "chapter": "ch08"},
+        {"label": "Client Lunch 人均", "value": "¥500/$100", "chapter": "ch08"},
+        {"label": "Team Dinner 人均", "value": "¥300/$75", "chapter": "ch07"},
+        {"label": "出租车单次 (Tier 1)", "value": "¥200", "chapter": "ch04"},
+        {"label": "单餐收据阈值", "value": "¥200/$50", "chapter": "ch07"}
+      ]
+    },
+    "timelines": {
+      "title": "时限速查",
+      "items": [
+        {"label": "国内航班提前预订", "value": "7 工作日", "chapter": "ch03"},
+        {"label": "国际航班提前预订", "value": "14 工作日", "chapter": "ch03"},
+        {"label": "Concur 提交时限", "value": "30 天", "chapter": "ch10"},
+        {"label": "Late Submission (31-60天)", "value": "需 Manager 说明", "chapter": "ch10"},
+        {"label": "Late Submission (>90天)", "value": "原则不报", "chapter": "ch10"},
+        {"label": "未使用机票报告", "value": "24 小时", "chapter": "ch03"},
+        {"label": "Appeal 时限", "value": "14 天", "chapter": "ch11"},
+        {"label": "Manager 审批时效", "value": "2 工作日", "chapter": "ch02"}
+      ]
+    },
+    "contacts": {
+      "title": "关键联系人/系统",
+      "items": [
+        {"label": "差旅预订", "value": "Amex GBT / TripSource China", "chapter": "ch06"},
+        {"label": "费用提交", "value": "SAP Concur", "chapter": "ch10"},
+        {"label": "T&E 支持", "value": "GFOS T&E Team (te-support@bcg.com)", "chapter": "ch11"},
+        {"label": "Travel Desk", "value": "travel-desk@bcg.com", "chapter": "ch06"},
+        {"label": "Policy 问题", "value": "GFOS T&E / Office Finance", "chapter": "ch01"}
+      ]
+    },
+    "do_dont": {
+      "title": "Do's & Don'ts",
+      "dos": [
+        "通过 Amex GBT / TripSource 预订",
+        "30 天内提交 Concur",
+        "保留所有收据和发票",
+        "正确填写 Cost Center 和 Project Code",
+        "国际出差获取 Pre-approval",
+        "优先使用 Didi/高德企业账户",
+        "中国区提供正规 Fapiao"
+      ],
+      "donts": [
+        "自行通过携程/飞猪预订",
+        "报销 Mini-bar 消费",
+        "报销家属费用",
+        "虚假或重复报销",
+        "超 Policy 未经审批",
+        "使用白条/收据代替 Fapiao (中国)",
+        "Team Dinner 中报销酒精"
+      ]
+    }
+  }
+}

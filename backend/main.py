@@ -15,6 +15,7 @@ from pydantic import BaseModel
 from langchain_core.messages import HumanMessage
 
 from graph.travel_graph import get_compiled_graph
+from kb_router import router as kb_router
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -50,6 +51,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(kb_router)
 
 # ---------------------------------------------------------------------------
 # Request / Response models
@@ -196,3 +199,10 @@ if os.path.exists(frontend_path):
     @app.get("/")
     async def serve_frontend():
         return FileResponse(os.path.join(frontend_path, "index.html"))
+
+    @app.get("/kb")
+    async def serve_kb():
+        kb_path = os.path.join(frontend_path, "kb.html")
+        if os.path.exists(kb_path):
+            return FileResponse(kb_path)
+        raise HTTPException(status_code=404, detail="Knowledge base UI not found")

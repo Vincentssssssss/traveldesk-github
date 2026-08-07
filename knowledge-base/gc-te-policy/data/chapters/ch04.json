@@ -1,0 +1,37 @@
+{
+  "id": "ch04",
+  "title": "铁路与地面交通",
+  "title_en": "Rail & Ground Transportation",
+  "category": "travel",
+  "summary": "高铁/动车为首选，地面交通优先使用公司账户或公共交通，出租车/网约车需合理使用。",
+  "sections": [
+    {
+      "id": "ch04-s01",
+      "title": "铁路差旅",
+      "content": "- **首选方式**：高铁/动车（≤8小时车程的国内差旅）\n- **座位等级**：\n  - Analyst-Consultant：二等座\n  - Project Leader+：一等座\n  - Principal/Partner：商务座\n- **预订渠道**：12306 或通过 Amex GBT\n- BCG 鼓励 Air-to-Rail 转换，支持碳减排目标",
+      "key_points": ["高铁优先", "按职级选座", "Air-to-Rail"],
+      "related_rules": ["RULE-RAIL-001"]
+    },
+    {
+      "id": "ch04-s02",
+      "title": "出租车与网约车",
+      "content": "- **优先使用**：公司 Didi 企业账户 / 高德企业版\n- **允许场景**：机场/火车站接送、无公共交通的夜间出行、携带大件行李\n- **限额**：单次 ≤ ¥200（一线城市），≤ ¥150（其他城市）\n- **禁止**：日常通勤、个人社交活动\n- Uber/Lyft 在海外出差时可用，须使用公司账户",
+      "key_points": ["Didi企业账户", "单次限额", "禁止通勤"],
+      "related_rules": ["RULE-GROUND-001", "RULE-GROUND-002"]
+    },
+    {
+      "id": "ch04-s03",
+      "title": "租车与私车",
+      "content": "- **租车**：仅在无其他合理交通方式时允许，需 Manager Pre-approval\n- **车型**：经济型/紧凑型，不含 luxury/SUV（除非业务需要）\n- **私车**：按 IRS/当地标准里程费率报销（中国：¥1.5/km）\n- **停车费**：机场/火车站经济型停车场可报销",
+      "key_points": ["租车需审批", "经济型", "私车里程费率"],
+      "related_rules": ["RULE-GROUND-003"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-RAIL-001", "title": "高铁优先原则", "description": "≤8h 车程的国内差旅，优先选择高铁而非飞机。", "severity": "info"},
+    {"id": "RULE-GROUND-001", "title": "企业账户优先", "description": "Didi/高德企业账户可直接结算，无需个人垫付。", "severity": "info"},
+    {"id": "RULE-GROUND-002", "title": "出租车限额", "description": "超限额需 Manager 批准并说明业务原因。", "severity": "warning"},
+    {"id": "RULE-GROUND-003", "title": "租车审批", "description": "所有租车需 Pre-approval，并选择 Full Coverage Insurance。", "severity": "warning"}
+  ],
+  "keywords": ["rail", "train", "高铁", "taxi", "didi", "ground transport", "租车"]
+}

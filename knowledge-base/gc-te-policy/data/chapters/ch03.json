@@ -1,0 +1,45 @@
+{
+  "id": "ch03",
+  "title": "航空差旅政策",
+  "title_en": "Air Travel Policy",
+  "category": "travel",
+  "summary": "舱位选择按职级和飞行时长确定，须通过 Amex GBT 预订，Preferred Airline 优先。",
+  "sections": [
+    {
+      "id": "ch03-s01",
+      "title": "舱位标准",
+      "content": "| 职级 | 国内 (<4h) | 国内 (≥4h) | 国际 (<6h) | 国际 (≥6h) |\n|------|-----------|-----------|-----------|------------|\n| Analyst/Associate | 经济舱 | 经济舱 | 经济舱 | 经济舱 |\n| Consultant/SAC | 经济舱 | 经济舱 | 经济舱 | 商务舱 |\n| Project Leader+ | 经济舱 | 商务舱 | 经济舱 | 商务舱 |\n| Principal/Partner | 商务舱 | 商务舱 | 商务舱 | 商务舱 |\n\n**Red-eye 航班**：飞行时间 ≥6 小时且跨越夜间时段，Consultant 及以上可升舱至商务舱。",
+      "key_points": ["按职级分舱", "6小时国际商务舱", "Red-eye例外"],
+      "related_rules": ["RULE-AIR-001", "RULE-AIR-002"]
+    },
+    {
+      "id": "ch03-s02",
+      "title": "Preferred Airlines",
+      "content": "**国内航线**：国航 (CA)、东航 (MU)、南航 (CZ)、海航 (HU)\n\n**国际航线**：\n- 美洲：United, Delta, American Airlines\n- 欧洲：Lufthansa, British Airways, Air France\n- 亚太：Singapore Airlines, Cathay Pacific, ANA\n\n非 Preferred Airline 需满足：价格比 Preferred 低 ≥10%，或 Preferred 无合适航班。",
+      "key_points": ["国航/东航/南航/海航", "国际Preferred列表", "10%价格差例外"],
+      "related_rules": ["RULE-AIR-003"]
+    },
+    {
+      "id": "ch03-s03",
+      "title": "提前预订要求",
+      "content": "- **国内航班**：至少提前 **7 个工作日** 预订\n- **国际航班**：至少提前 **14 个工作日** 预订\n- 临时预订 (<7天) 需 Manager Pre-approval\n- 例外：客户驱动的紧急出差、Medical Emergency",
+      "key_points": ["国内7天", "国际14天", "临时需审批"],
+      "related_rules": ["RULE-AIR-004"]
+    },
+    {
+      "id": "ch03-s04",
+      "title": "改签与取消",
+      "content": "- 航班变更应通过 Amex GBT 处理\n- 因公司原因取消：全额报销\n- 因个人原因取消/改签：个人承担差价\n- 未使用机票须在 24 小时内报告 Travel Desk\n- 航司主动取消：按航司政策处理，Travel Desk 协助",
+      "key_points": ["通过Travel Desk", "个人原因自费", "24小时报告未用票"],
+      "related_rules": ["RULE-AIR-005"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-AIR-001", "title": "经济舱默认", "description": "除非政策明确允许，所有员工默认经济舱。", "severity": "warning"},
+    {"id": "RULE-AIR-002", "title": "Red-eye 升舱", "description": "Consultant+ 级别，≥6h 且跨越 22:00-06:00 的航班可升商务舱。", "severity": "info"},
+    {"id": "RULE-AIR-003", "title": "非Preferred航司", "description": "需附价格对比截图，Manager 批准后方可报销。", "severity": "warning"},
+    {"id": "RULE-AIR-004", "title": "Last-minute 预订", "description": "<7天预订需 Pre-approval，并在 Concur 中注明原因。", "severity": "warning"},
+    {"id": "RULE-AIR-005", "title": "未使用机票", "description": "未使用的机票/积分必须在 24h 内报告，否则视为个人使用。", "severity": "critical"}
+  ],
+  "keywords": ["air", "flight", "机票", "舱位", "economy", "business class", "preferred airline"]
+}

@@ -1,0 +1,114 @@
+{
+  "scenarios": [
+    {
+      "id": "sc01",
+      "title": "Consultant 国际 Red-eye 航班",
+      "category": "travel",
+      "difficulty": "medium",
+      "situation": "你是一名 Consultant，需要从上海飞往法兰克福参加客户会议。航班时长 12 小时，出发时间 23:30。你想订商务舱。",
+      "question": "你是否可以订商务舱？需要哪些审批？",
+      "answer": "可以。Consultant 级别国际航班 ≥6 小时可订商务舱。Red-eye 航班（跨越 22:00-06:00）也符合升舱条件。但仍需：1) 通过 Amex GBT 预订；2) 提交 Concur Request Pre-trip Approval（国际出差必须）；3) 完成 Travel Registration。",
+      "related_rules": ["RULE-AIR-001", "RULE-AIR-002", "RULE-BOOK-002"],
+      "related_chapters": ["ch03", "ch06"]
+    },
+    {
+      "id": "sc02",
+      "title": "Last-minute 国内出差",
+      "category": "travel",
+      "difficulty": "easy",
+      "situation": "客户临时要求你明天从北京去深圳，你需要订明天的机票。",
+      "question": "Last-minute 预订 (<7天) 需要什么额外步骤？",
+      "answer": "1) 获得 Line Manager 的 Pre-trip Approval；2) 在 Concur Request 中注明 'Client-driven last-minute travel'；3) 仍通过 Amex GBT 预订；4) 提交 Concur Expense Report 时附上 Pre-approval 记录。",
+      "related_rules": ["RULE-AIR-004", "RULE-BOOK-002"],
+      "related_chapters": ["ch03", "ch06"]
+    },
+    {
+      "id": "sc03",
+      "title": "上海出差酒店超限额",
+      "category": "travel",
+      "difficulty": "medium",
+      "situation": "你在上海出差，客户办公室旁边的会议酒店每晚 ¥1,500，没有其他 Preferred 酒店在 2 公里内。",
+      "question": "¥1,500/night 能否报销？",
+      "answer": "可以，但需 Pre-approval。上海 Tier 1 Nightly Cap 为 ¥1,200，超限额 ¥300。因为是会议酒店且无其他选择，申请 Manager Pre-approval 并说明原因（Conference hotel, no alternative within 2 miles）。审批通过后可全额报销。",
+      "related_rules": ["RULE-HOTEL-001", "RULE-HOTEL-002"],
+      "related_chapters": ["ch05", "ch06"]
+    },
+    {
+      "id": "sc04",
+      "title": "Client Dinner 招待",
+      "category": "expense",
+      "difficulty": "hard",
+      "situation": "你作为 Project Leader 请 4 位客户在北京一家餐厅用餐，总账单 ¥4,500（人均 ¥900，含红酒 ¥800）。",
+      "question": "哪些费用可以报销？需要什么文件？",
+      "answer": "可报销：¥4,500 总账单（Client Entertainment 商务晚餐人均限额 ¥800，4人共 ¥3,200 在限额内... 等等，人均 ¥900 超限额 ¥800）。超限额部分 (4×¥100=¥400) 需 Partner Pre-approval。红酒在 Client Entertainment 中可报销。需要：1) 详细收据；2) 参与人员名单 (4 Client + BCG人员)；3) 业务目的说明；4) Project Code；5) 增值税发票 (Fapiao)；6) Partner Pre-approval (因超人均限额)。",
+      "related_rules": ["RULE-CE-002", "RULE-CE-004", "RULE-CN-001"],
+      "related_chapters": ["ch08", "ch12"]
+    },
+    {
+      "id": "sc05",
+      "title": "Didi 报销 vs 企业账户",
+      "category": "china",
+      "difficulty": "easy",
+      "situation": "你在广州出差，从酒店去客户办公室。你没有使用 Didi 企业账户，而是用个人微信支付了 ¥45。",
+      "question": "如何报销这 ¥45？",
+      "answer": "1) 下次优先使用 Didi 企业账户（直接结算，无需报销）；2) 本次报销：在 Concur 中创建 Ground Transport 条目，金额 ¥45，上传 Didi 行程截图和电子发票 (Fapiao)，选择正确的 Expense Type 和 Project Code。注意：电子发票抬头必须是公司全称。",
+      "related_rules": ["RULE-GROUND-001", "RULE-CN-001", "RULE-CN-003"],
+      "related_chapters": ["ch04", "ch12"]
+    },
+    {
+      "id": "sc06",
+      "title": "Team Dinner 审批",
+      "category": "expense",
+      "difficulty": "medium",
+      "situation": "Case Team 8 人想在项目里程碑完成后聚餐庆祝，预计人均 ¥250。",
+      "question": "需要什么审批？有什么限制？",
+      "answer": "1) >6 人 Team Dinner 需 Office Head 批准（8人 > 6人阈值）；2) 人均 ¥250 在 ¥300 限额内，OK；3) 酒精不可报销；4) 每项目每两周最多一次 Team Dinner；5) 需在 Concur 中注明参与人员和项目编号。",
+      "related_rules": ["RULE-MEAL-003", "RULE-MEAL-004"],
+      "related_chapters": ["ch07"]
+    },
+    {
+      "id": "sc07",
+      "title": "Late Submission 补救",
+      "category": "submission",
+      "difficulty": "medium",
+      "situation": "你 2 个月前的一次出差费用忘记提交 Concur，现在想报销 ¥3,500。",
+      "question": "还能报销吗？需要什么额外步骤？",
+      "answer": "可以，但需额外审批。45 天属于 31-60 天 Late Submission 区间：1) 需 Line Manager 书面说明延迟原因；2) 在 Concur Expense Report 备注中说明；3) 所有收据和发票必须齐全；4) Manager 和 GFOS 都会 Review。如果超过 60 天则需 Office Head 批准。",
+      "related_rules": ["RULE-SUB-002"],
+      "related_chapters": ["ch10"]
+    },
+    {
+      "id": "sc08",
+      "title": "Mini-bar 争议",
+      "category": "expense",
+      "difficulty": "easy",
+      "situation": "你在酒店房间喝了 Mini-bar 的一瓶水和一罐啤酒（共 ¥80），想一起报销在 Hotel 费用里。",
+      "question": "Mini-bar 消费能否报销？",
+      "answer": "绝对不能。Mini-bar 所有消费均为个人费用，不可报销。即使金额很小。你应该在前台单独支付 Mini-bar 账单，不要计入 Concur Hotel 条目。",
+      "related_rules": ["RULE-HOTEL-003", "RULE-NR-001"],
+      "related_chapters": ["ch05", "ch09"]
+    },
+    {
+      "id": "sc09",
+      "title": "高铁 vs 飞机选择",
+      "category": "travel",
+      "difficulty": "easy",
+      "situation": "北京到天津出差（高铁 30 分钟 vs 飞机 1.5 小时含机场时间）。",
+      "question": "应该选择什么交通方式？",
+      "answer": "高铁。≤8 小时车程的国内差旅优先选择高铁 (Air-to-Rail 原则)。北京-天津高铁仅 30 分钟，远优于飞机。Consultant 级别应订二等座。通过 Amex GBT 或 12306 预订。",
+      "related_rules": ["RULE-RAIL-001"],
+      "related_chapters": ["ch04"]
+    },
+    {
+      "id": "sc10",
+      "title": "Duplicate Submission 风险",
+      "category": "compliance",
+      "difficulty": "hard",
+      "situation": "你不小心在 Concur 中提交了两次同一笔 ¥500 的出租车费用（两个不同的 Expense Report）。GFOS 发现了重复。",
+      "question": "会有什么后果？如何处理？",
+      "answer": "Duplicate submission 属于'严重'违规：1) 两笔都会被拒报；2) Manager 会收到通知；3) HR 记录。处理方式：立即联系 GFOS T&E (te-support@bcg.com)，说明是误操作，请求撤销其中一个 Report。主动报告可减轻处理。",
+      "related_rules": ["RULE-AUDIT-003", "RULE-NR-003"],
+      "related_chapters": ["ch11"]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "ch09",
+  "title": "不可报销费用",
+  "title_en": "Non-reimbursable Expenses",
+  "category": "expense",
+  "summary": "明确列出所有不可报销的费用类型，包括个人消费、违规升级、无收据项目等。",
+  "sections": [
+    {
+      "id": "ch09-s01",
+      "title": "绝对不可报销",
+      "content": "以下费用**绝对不可报销**，无论任何理由：\n\n1. **个人消费**：购物、娱乐、观光、Spa\n2. **家属费用**：配偶/子女/家属的所有旅行费用\n3. **违规升级**：未经批准的头等舱、套房升级\n4. **Mini-bar / In-room entertainment**\n5. **Traffic violations / 罚款**\n6. **Pet care / 宠物寄养**\n7. **Gym / Fitness** (除非酒店免费设施)\n8. **Personal phone calls / 个人通讯**\n9. **Political contributions**\n10. **Cash advances 利息**",
+      "key_points": ["个人消费", "家属费用", "违规升级", "Mini-bar"],
+      "related_rules": ["RULE-NR-001"]
+    },
+    {
+      "id": "ch09-s02",
+      "title": "需特殊审批的项目",
+      "content": "以下项目**默认不可报销**，但经特殊审批后可报：\n\n| 项目 | 审批要求 |\n|------|--------|\n| 超 Policy 舱位/酒店 | Manager + GFOS |\n| 非 Preferred Vendor | Manager + 价格对比 |\n| 租车 | Manager Pre-approval |\n| 超 CE 限额 | Partner 级别 |\n| 紧急 Last-minute 预订 | Manager + 原因说明 |\n| 洗衣 (出差<5天) | Manager |\n| 第二件行李 | Manager + 业务原因 |",
+      "key_points": ["默认不可报", "特殊审批可例外", "Partner级别"],
+      "related_rules": ["RULE-NR-002"]
+    },
+    {
+      "id": "ch09-s03",
+      "title": "常见拒报原因",
+      "content": "GFOS T&E Audit 最常见的拒报原因：\n\n1. ❌ 缺少收据/发票 (Missing receipt)\n2. ❌ 无 Pre-approval (Out-of-policy without approval)\n3. ❌ 错误的 Cost Center / Project Code\n4. ❌ 超过提交时限 (>30 days)\n5. ❌ 重复报销 (Duplicate submission)\n6. ❌ 个人与商务费用混合 (Mixed personal/business)\n7. ❌ 发票抬头错误 (Wrong invoice title)\n8. ❌ 金额与收据不符 (Amount mismatch)",
+      "key_points": ["缺收据", "无审批", "编码错误", "超时", "重复报销"],
+      "related_rules": ["RULE-NR-003"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-NR-001", "title": "绝对禁止", "description": "个人消费、家属费用、违规升级等绝对不可报销。", "severity": "critical"},
+    {"id": "RULE-NR-002", "title": "例外审批", "description": "Out-of-Policy 项目必须有书面 Pre-approval 记录。", "severity": "warning"},
+    {"id": "RULE-NR-003", "title": "拒报处理", "description": "被拒报的费用可在 14 天内 Appeal，附补充材料。", "severity": "info"}
+  ],
+  "keywords": ["non-reimbursable", "不可报销", "personal", "prohibited", "rejection"]
+}

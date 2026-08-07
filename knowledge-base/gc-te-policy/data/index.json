@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "title": "BCG Global China Travel & Expense Policy",
+    "version": "v202212",
+    "effective_date": "2022-12-01",
+    "document_id": "GC-TE-POLICY-202212",
+    "language": [
+      "zh-CN",
+      "en"
+    ],
+    "source": "GC TE Policy_v202212.pdf",
+    "last_updated": "2026-08-07",
+    "total_chapters": 12,
+    "total_rules": 46,
+    "total_glossary_terms": 35,
+    "total_flashcards": 76,
+    "total_scenarios": 10
+  },
+  "categories": [
+    {
+      "id": "general",
+      "name": "总则与原则",
+      "name_en": "General Principles",
+      "icon": "📋",
+      "chapter_count": 2
+    },
+    {
+      "id": "travel",
+      "name": "差旅管理",
+      "name_en": "Travel Management",
+      "icon": "✈️",
+      "chapter_count": 4
+    },
+    {
+      "id": "expense",
+      "name": "费用报销",
+      "name_en": "Expense Reimbursement",
+      "icon": "💰",
+      "chapter_count": 3
+    },
+    {
+      "id": "submission",
+      "name": "提交流程",
+      "name_en": "Submission Process",
+      "icon": "📝",
+      "chapter_count": 1
+    },
+    {
+      "id": "compliance",
+      "name": "合规与审计",
+      "name_en": "Compliance & Audit",
+      "icon": "🔍",
+      "chapter_count": 1
+    },
+    {
+      "id": "china",
+      "name": "中国区特殊规定",
+      "name_en": "China-Specific Rules",
+      "icon": "🇨🇳",
+      "chapter_count": 1
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ch01",
+      "category": "general",
+      "title": "政策概述与适用范围",
+      "title_en": "Policy Overview & Scope",
+      "order": 1
+    },
+    {
+      "id": "ch02",
+      "category": "general",
+      "title": "核心原则与员工职责",
+      "title_en": "Core Principles & Responsibilities",
+      "order": 2
+    },
+    {
+      "id": "ch03",
+      "category": "travel",
+      "title": "航空差旅政策",
+      "title_en": "Air Travel Policy",
+      "order": 3
+    },
+    {
+      "id": "ch04",
+      "category": "travel",
+      "title": "铁路与地面交通",
+      "title_en": "Rail & Ground Transportation",
+      "order": 4
+    },
+    {
+      "id": "ch05",
+      "category": "travel",
+      "title": "酒店住宿政策",
+      "title_en": "Hotel & Accommodation",
+      "order": 5
+    },
+    {
+      "id": "ch06",
+      "category": "travel",
+      "title": "差旅预订与审批",
+      "title_en": "Travel Booking & Pre-approval",
+      "order": 6
+    },
+    {
+      "id": "ch07",
+      "category": "expense",
+      "title": "餐饮与日常津贴",
+      "title_en": "Meals & Daily Allowances",
+      "order": 7
+    },
+    {
+      "id": "ch08",
+      "category": "expense",
+      "title": "客户招待与商务活动",
+      "title_en": "Client Entertainment",
+      "order": 8
+    },
+    {
+      "id": "ch09",
+      "category": "expense",
+      "title": "不可报销费用",
+      "title_en": "Non-reimbursable Expenses",
+      "order": 9
+    },
+    {
+      "id": "ch10",
+      "category": "submission",
+      "title": "费用提交与 Concur 流程",
+      "title_en": "Expense Submission via Concur",
+      "order": 10
+    },
+    {
+      "id": "ch11",
+      "category": "compliance",
+      "title": "审批层级与审计合规",
+      "title_en": "Approval Hierarchy & Audit",
+      "order": 11
+    },
+    {
+      "id": "ch12",
+      "category": "china",
+      "title": "中国区特殊规定",
+      "title_en": "China-Specific Requirements",
+      "order": 12
+    }
+  ],
+  "learning_paths": [
+    {
+      "id": "path-new-joiner",
+      "name": "新员工入门",
+      "description": "适合刚加入 BCG 的员工，了解基本差旅报销规则",
+      "steps": [
+        "ch01",
+        "ch02",
+        "ch06",
+        "ch10",
+        "ch12"
+      ]
+    },
+    {
+      "id": "path-travel-heavy",
+      "name": "高频出差顾问",
+      "description": "适合每周出差的 Consultant/Project Leader",
+      "steps": [
+        "ch03",
+        "ch04",
+        "ch05",
+        "ch07",
+        "ch08",
+        "ch11"
+      ]
+    },
+    {
+      "id": "path-expense-audit",
+      "name": "费用审核专员",
+      "description": "适合 GFOS T&E 团队或 Office Finance",
+      "steps": [
+        "ch09",
+        "ch10",
+        "ch11",
+        "ch12"
+      ]
+    },
+    {
+      "id": "path-full-mastery",
+      "name": "全面掌握",
+      "description": "按顺序学习全部 12 章",
+      "steps": [
+        "ch01",
+        "ch02",
+        "ch03",
+        "ch04",
+        "ch05",
+        "ch06",
+        "ch07",
+        "ch08",
+        "ch09",
+        "ch10",
+        "ch11",
+        "ch12"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "ch02",
+  "title": "核心原则与员工职责",
+  "title_en": "Core Principles & Responsibilities",
+  "category": "general",
+  "summary": "所有差旅与费用决策应遵循合理、审慎、经济、合规四大原则，员工对提交的费用真实性负全责。",
+  "sections": [
+    {
+      "id": "ch02-s01",
+      "title": "四大核心原则",
+      "content": "**1. 合理性 (Reasonableness)**\n费用必须与业务目的直接相关，金额在合理范围内。\n\n**2. 审慎性 (Prudence)**\n选择满足业务需求的最经济选项，避免不必要的升级或浪费。\n\n**3. 经济性 (Cost-effectiveness)**\n优先使用公司协议价、Preferred Vendor，比较价格后选择最优方案。\n\n**4. 合规性 (Compliance)**\n严格遵守政策限额、审批要求和当地法规（含税务）。",
+      "key_points": ["合理", "审慎", "经济", "合规"],
+      "related_rules": ["RULE-GEN-010", "RULE-GEN-011"]
+    },
+    {
+      "id": "ch02-s02",
+      "title": "员工职责",
+      "content": "每位员工必须：\n\n1. **提前规划** — 尽可能提前预订差旅，获取更优价格\n2. **正确预订** — 通过 Amex GBT / TripSource 等公司指定渠道预订\n3. **保留凭证** — 妥善保存所有收据和发票原件\n4. **及时提交** — 出差结束后 30 天内提交 Concur 报销\n5. **准确编码** — 正确填写 Cost Center 和 Project Code\n6. **如实申报** — 不得拆分、虚报或重复报销",
+      "key_points": ["提前预订", "指定渠道", "保留凭证", "30天内提交", "如实申报"],
+      "related_rules": ["RULE-GEN-012", "RULE-GEN-013"]
+    },
+    {
+      "id": "ch02-s03",
+      "title": "Manager 职责",
+      "content": "直线经理 (Line Manager) 负责：\n\n- 审批下属的 Pre-trip Approval 和费用报告\n- 确保团队了解并遵守 GC TE Policy\n- 对 Out-of-Policy 申请进行合理性判断\n- 配合 GFOS 审计调查",
+      "key_points": ["审批", "团队合规", "例外判断"],
+      "related_rules": ["RULE-GEN-014"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-GEN-010", "title": "最低成本原则", "description": "在满足业务需求前提下，选择最低合理成本选项。不得因个人偏好选择更贵方案。", "severity": "warning"},
+    {"id": "RULE-GEN-011", "title": "Preferred Vendor 优先", "description": "必须优先使用公司 Preferred Airline、Hotel Partner。非 Preferred 需说明理由并获批准。", "severity": "warning"},
+    {"id": "RULE-GEN-012", "title": "指定预订渠道", "description": "所有机票、酒店必须通过 Amex GBT 或 TripSource 预订。自行预订需 Pre-approval。", "severity": "critical"},
+    {"id": "RULE-GEN-013", "title": "真实性责任", "description": "员工对提交的所有费用真实性、完整性负全责。虚假报销将导致纪律处分。", "severity": "critical"},
+    {"id": "RULE-GEN-014", "title": "Manager 审批时效", "description": "Manager 应在收到审批请求后 2 个工作日内完成审批。", "severity": "info"}
+  ],
+  "keywords": ["principles", "responsibilities", "原则", "职责", "reasonableness", "compliance"]
+}

@@ -1,0 +1,115 @@
+{
+  "decision_trees": [
+    {
+      "id": "dt-flight-class",
+      "title": "航空舱位选择决策树",
+      "description": "根据职级、航线和飞行时长确定允许的舱位",
+      "root": {
+        "question": "飞行时长是否 ≥6 小时？",
+        "yes": {
+          "question": "是否为 Red-eye 航班 (22:00-06:00) 或国际航线？",
+          "yes": {
+            "question": "你的职级是？",
+            "options": {
+              "Analyst/Associate": {"result": "经济舱", "rule": "RULE-AIR-001"},
+              "Consultant/SAC": {"result": "商务舱 ✓", "rule": "RULE-AIR-002"},
+              "Project Leader+": {"result": "商务舱 ✓", "rule": "RULE-AIR-001"},
+              "Principal/Partner": {"result": "商务舱 ✓", "rule": "RULE-AIR-001"}
+            }
+          },
+          "no": {
+            "question": "你的职级是？",
+            "options": {
+              "Analyst-Consultant": {"result": "经济舱", "rule": "RULE-AIR-001"},
+              "Project Leader+": {"result": "商务舱 ✓", "rule": "RULE-AIR-001"},
+              "Principal/Partner": {"result": "商务舱 ✓", "rule": "RULE-AIR-001"}
+            }
+          }
+        },
+        "no": {
+          "question": "你的职级是？",
+          "options": {
+            "Analyst-Project Leader": {"result": "经济舱", "rule": "RULE-AIR-001"},
+            "Principal/Partner": {"result": "商务舱 ✓", "rule": "RULE-AIR-001"}
+          }
+        }
+      }
+    },
+    {
+      "id": "dt-pre-approval",
+      "title": "Pre-trip Approval 决策树",
+      "description": "判断你的出差是否需要 Pre-trip Approval",
+      "root": {
+        "question": "是否为国际出差？",
+        "yes": {"result": "需要 Pre-approval ✓", "rule": "RULE-BOOK-002", "note": "所有国际出差必须"},
+        "no": {
+          "question": "是否 Out-of-Policy (舱位/酒店/航司)？",
+          "yes": {"result": "需要 Pre-approval ✓", "rule": "RULE-BOOK-002"},
+          "no": {
+            "question": "是否 <7 天内预订？",
+            "yes": {"result": "需要 Pre-approval ✓", "rule": "RULE-AIR-004"},
+            "no": {
+              "question": "出差是否 >14 天？",
+              "yes": {"result": "需要 Pre-approval ✓", "rule": "RULE-BOOK-002"},
+              "no": {"result": "无需 Pre-approval", "note": "常规国内出差，通过 Amex GBT 直接预订"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "dt-expense-receipt",
+      "title": "收据需求决策树",
+      "description": "判断费用是否需要附收据/发票",
+      "root": {
+        "question": "是否在中国区发生？",
+        "yes": {
+          "question": "是否使用企业账户 (Didi/Amex GBT) 直接结算？",
+          "yes": {"result": "无需个人发票", "note": "企业账户自动结算"},
+          "no": {
+            "question": "是否为 Allowance 内餐饮？",
+            "yes": {"result": "无需发票 (Allowance 内)", "rule": "RULE-MEAL-001"},
+            "no": {"result": "需要 Fapiao (发票) ✓", "rule": "RULE-CN-001"}
+          }
+        },
+        "no": {
+          "question": "费用类型？",
+          "options": {
+            "Corporate Card 自动导入": {"result": "无需额外收据", "note": "Card 交易自动匹配"},
+            "Meals - Allowance 内": {"result": "无需收据", "rule": "RULE-MEAL-001"},
+            "Meals - 单餐 >¥200/$50": {"result": "需要收据 ✓", "rule": "RULE-MEAL-002"},
+            "Client Entertainment": {"result": "总是需要收据 ✓", "rule": "RULE-CE-004"},
+            "Ground Transport >¥100": {"result": "需要收据 ✓", "rule": "RULE-SUB-003"},
+            "其他 Out-of-pocket": {"result": "需要 Receipt ✓", "rule": "RULE-SUB-003"}
+          }
+        }
+      }
+    },
+    {
+      "id": "dt-reimbursable",
+      "title": "费用可否报销决策树",
+      "description": "快速判断一项费用是否可以报销",
+      "root": {
+        "question": "是否为个人消费 (购物/娱乐/观光)？",
+        "yes": {"result": "❌ 不可报销", "rule": "RULE-NR-001"},
+        "no": {
+          "question": "是否为家属费用？",
+          "yes": {"result": "❌ 不可报销", "rule": "RULE-NR-001"},
+          "no": {
+            "question": "是否为 Mini-bar / In-room entertainment？",
+            "yes": {"result": "❌ 不可报销", "rule": "RULE-HOTEL-003"},
+            "no": {
+              "question": "是否与业务直接相关？",
+              "yes": {
+                "question": "是否在 Policy 限额内？",
+                "yes": {"result": "✓ 可报销", "note": "正常提交 Concur"},
+                "no": {"result": "⚠️ 需 Pre-approval 后可报销", "rule": "RULE-NR-002"}
+              },
+              "no": {"result": "❌ 不可报销", "rule": "RULE-NR-001"}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "ch08",
+  "title": "客户招待与商务活动",
+  "title_en": "Client Entertainment",
+  "category": "expense",
+  "summary": "Client Entertainment 需 Pre-approval，按职级设定人均上限，须注明客户和项目。",
+  "sections": [
+    {
+      "id": "ch08-s01",
+      "title": "Client Entertainment 定义",
+      "content": "Client Entertainment 指为业务目的招待客户或其代表的活动，包括：\n\n- 商务用餐\n- 文化活动（音乐会、体育赛事等）\n- 礼品（见 Gift Policy）\n- 交通接送（客户）\n\n**不包括**：Case Team 内部活动、Recruiting 活动（有单独政策）",
+      "key_points": ["业务目的", "客户相关", "不含内部活动"],
+      "related_rules": ["RULE-CE-001"]
+    },
+    {
+      "id": "ch08-s02",
+      "title": "人均限额",
+      "content": "| 活动类型 | 人均限额 (含税) |\n|---------|---------------|\n| 商务午餐 | ¥500 / $100 |\n| 商务晚餐 | ¥800 / $150 |\n| 文化活动 | ¥1,500 / $300 |\n| 礼品 | ¥500 / $100 (per gift) |\n\n- 超限额需 Partner 级别 Pre-approval\n- 须注明：客户名称、参与 BCG 人员、项目编号\n- 中国 Anti-bribery 法规适用，禁止不当利益输送",
+      "key_points": ["按活动类型限额", "超限额Partner批", "Anti-bribery"],
+      "related_rules": ["RULE-CE-002", "RULE-CE-003"]
+    },
+    {
+      "id": "ch08-s03",
+      "title": "Documentation 要求",
+      "content": "Client Entertainment 报销必须包含：\n\n1. 详细收据（含餐厅/场所名称、日期、金额）\n2. 参与人员名单（BCG + Client）\n3. 业务目的说明\n4. Project Code\n5. Pre-approval 记录（如适用）\n6. 中国区：正规发票 (Fapiao)",
+      "key_points": ["完整收据", "人员名单", "业务目的", "Fapiao"],
+      "related_rules": ["RULE-CE-004"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-CE-001", "title": "业务关联", "description": "Client Entertainment 必须与具体客户项目直接相关。", "severity": "critical"},
+    {"id": "RULE-CE-002", "title": "人均限额", "description": "不得超过对应活动类型的人均限额。", "severity": "critical"},
+    {"id": "RULE-CE-003", "title": "Anti-bribery", "description": "遵守 FCPA 及中国反商业贿赂法规，禁止不当利益输送。", "severity": "critical"},
+    {"id": "RULE-CE-004", "title": "Documentation", "description": "缺少参与人员名单或业务目的的 CE 报销将被拒。", "severity": "warning"}
+  ],
+  "keywords": ["client entertainment", "客户招待", "business meal", "gift", "anti-bribery"]
+}

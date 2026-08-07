@@ -1,0 +1,658 @@
+{
+  "flashcards": [
+    {
+      "id": "fc01",
+      "category": "general",
+      "front": "GC TE Policy 适用于哪些地理区域？",
+      "back": "中国大陆、香港、台湾 (Greater China)",
+      "chapter": "ch01",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc02",
+      "category": "general",
+      "front": "GC TE Policy 的四大核心原则是什么？",
+      "back": "合理性 (Reasonableness)、审慎性 (Prudence)、经济性 (Cost-effectiveness)、合规性 (Compliance)",
+      "chapter": "ch02",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc03",
+      "category": "travel",
+      "front": "Consultant 级别国际航班 ≥6 小时应订什么舱位？",
+      "back": "商务舱 (Business Class)",
+      "chapter": "ch03",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc04",
+      "category": "travel",
+      "front": "国内航班应提前多少个工作日预订？",
+      "back": "7 个工作日",
+      "chapter": "ch03",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc05",
+      "category": "travel",
+      "front": "国际航班应提前多少个工作日预订？",
+      "back": "14 个工作日",
+      "chapter": "ch03",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc06",
+      "category": "travel",
+      "front": "Red-eye 航班升舱条件是什么？",
+      "back": "Consultant+ 级别，飞行 ≥6 小时且跨越 22:00-06:00",
+      "chapter": "ch03",
+      "difficulty": "hard"
+    },
+    {
+      "id": "fc07",
+      "category": "travel",
+      "front": "北京/上海的酒店 Nightly Cap 是多少？",
+      "back": "¥1,200/night (含税)",
+      "chapter": "ch05",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc08",
+      "category": "travel",
+      "front": "≤8 小时车程的国内差旅首选什么交通方式？",
+      "back": "高铁/动车 (Air-to-Rail)",
+      "chapter": "ch04",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc09",
+      "category": "travel",
+      "front": "所有国际出差是否需要 Pre-trip Approval？",
+      "back": "是，所有国际出差必须 Pre-trip Approval",
+      "chapter": "ch06",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc10",
+      "category": "expense",
+      "front": "国内 Daily Meal Allowance 是多少？",
+      "back": "¥300/day",
+      "chapter": "ch07",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc11",
+      "category": "expense",
+      "front": "Team Dinner 中酒精饮料能否报销？",
+      "back": "不能，Team Meal 中酒精不可报销",
+      "chapter": "ch07",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc12",
+      "category": "expense",
+      "front": "Client Entertainment 商务晚餐人均限额？",
+      "back": "¥800 / $150 (含税)",
+      "chapter": "ch08",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc13",
+      "category": "expense",
+      "front": "Mini-bar 消费能否报销？",
+      "back": "绝对不能，Mini-bar 所有消费均为个人费用",
+      "chapter": "ch05",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc14",
+      "category": "expense",
+      "front": "家属旅行费用能否报销？",
+      "back": "不能，家属所有旅行费用均为个人承担",
+      "chapter": "ch09",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc15",
+      "category": "submission",
+      "front": "费用提交的标准时限是多少天？",
+      "back": "30 个自然日（从出差结束或费用发生日起）",
+      "chapter": "ch10",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc16",
+      "category": "submission",
+      "front": "超过 90 天未提交的费用如何处理？",
+      "back": "原则上不予报销",
+      "chapter": "ch10",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc17",
+      "category": "submission",
+      "front": "Concur 中必须填写的两个编码是什么？",
+      "back": "Cost Center (部门编码) 和 Project Code/WBS (项目编码)",
+      "chapter": "ch10",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc18",
+      "category": "compliance",
+      "front": "GFOS T&E Audit 的 Spot Check 比例？",
+      "back": "约 30% 的报告被随机抽查",
+      "chapter": "ch11",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc19",
+      "category": "compliance",
+      "front": "被拒报后多少天内可以 Appeal？",
+      "back": "14 天内",
+      "chapter": "ch11",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc20",
+      "category": "compliance",
+      "front": "虚假报销的后果是什么？",
+      "back": "纪律处分，严重者解雇",
+      "chapter": "ch11",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc21",
+      "category": "china",
+      "front": "中国区报销必须提供什么凭证？",
+      "back": "正规发票 (Fapiao)，增值税专用/普通发票或电子发票",
+      "chapter": "ch12",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc22",
+      "category": "china",
+      "front": "中国区优先使用什么网约车工具？",
+      "back": "Didi 企业版 / 高德企业版（企业账户直接结算）",
+      "chapter": "ch12",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc23",
+      "category": "china",
+      "front": "中国区 OBT 是什么？",
+      "back": "TripSource China，支持 WeChat SSO 和 Concur 集成",
+      "chapter": "ch12",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc24",
+      "category": "travel",
+      "front": "BCG 指定的 TMC 是哪家？",
+      "back": "Amex GBT (American Express Global Business Travel)",
+      "chapter": "ch06",
+      "difficulty": "easy"
+    },
+    {
+      "id": "fc25",
+      "category": "expense",
+      "front": "单餐超过多少金额必须附收据？",
+      "back": "¥200 / $50",
+      "chapter": "ch07",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc26",
+      "category": "travel",
+      "front": "非 Preferred Airline 的例外条件？",
+      "back": "价格比 Preferred 低 ≥10%，或 Preferred 无合适航班",
+      "chapter": "ch03",
+      "difficulty": "hard"
+    },
+    {
+      "id": "fc27",
+      "category": "compliance",
+      "front": "¥5,000-20,000 的费用需要谁审批？",
+      "back": "Line Manager + Office Head",
+      "chapter": "ch11",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc28",
+      "category": "expense",
+      "front": "Client Entertainment 能否报销酒精？",
+      "back": "可以，Client Entertainment 中可含适量酒精",
+      "chapter": "ch08",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc29",
+      "category": "travel",
+      "front": "未使用的机票/积分应在多少小时内报告？",
+      "back": "24 小时内报告 Travel Desk",
+      "chapter": "ch03",
+      "difficulty": "hard"
+    },
+    {
+      "id": "fc30",
+      "category": "china",
+      "front": "增值税专用发票和普通发票的区别？",
+      "back": "专用发票可抵扣进项税，普通发票不可抵扣",
+      "chapter": "ch12",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fc-auto-101",
+      "category": "general",
+      "front": "[RULE-GEN-001] 因公差旅定义",
+      "back": "因公差旅指为执行 BCG 客户项目、内部会议、培训、招聘或其他经批准的公司业务活动而进行的旅行。",
+      "chapter": "ch01",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-102",
+      "category": "general",
+      "front": "[RULE-GEN-002] Personal Travel 界定",
+      "back": "个人旅行延伸（如在出差目的地额外停留的周末）产生的所有费用均为个人承担，不得报销。",
+      "chapter": "ch01",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-103",
+      "category": "general",
+      "front": "[RULE-GEN-003] 政策优先级",
+      "back": "当 Global Policy 与 Local Policy 冲突时，以更严格的规定为准。中国区特殊规定见第12章。",
+      "chapter": "ch01",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-104",
+      "category": "general",
+      "front": "[RULE-GEN-010] 最低成本原则",
+      "back": "在满足业务需求前提下，选择最低合理成本选项。不得因个人偏好选择更贵方案。",
+      "chapter": "ch02",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-105",
+      "category": "general",
+      "front": "[RULE-GEN-011] Preferred Vendor 优先",
+      "back": "必须优先使用公司 Preferred Airline、Hotel Partner。非 Preferred 需说明理由并获批准。",
+      "chapter": "ch02",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-106",
+      "category": "general",
+      "front": "[RULE-GEN-012] 指定预订渠道",
+      "back": "所有机票、酒店必须通过 Amex GBT 或 TripSource 预订。自行预订需 Pre-approval。",
+      "chapter": "ch02",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-107",
+      "category": "general",
+      "front": "[RULE-GEN-013] 真实性责任",
+      "back": "员工对提交的所有费用真实性、完整性负全责。虚假报销将导致纪律处分。",
+      "chapter": "ch02",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-108",
+      "category": "general",
+      "front": "[RULE-GEN-014] Manager 审批时效",
+      "back": "Manager 应在收到审批请求后 2 个工作日内完成审批。",
+      "chapter": "ch02",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-109",
+      "category": "travel",
+      "front": "[RULE-AIR-001] 经济舱默认",
+      "back": "除非政策明确允许，所有员工默认经济舱。",
+      "chapter": "ch03",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-110",
+      "category": "travel",
+      "front": "[RULE-AIR-002] Red-eye 升舱",
+      "back": "Consultant+ 级别，≥6h 且跨越 22:00-06:00 的航班可升商务舱。",
+      "chapter": "ch03",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-111",
+      "category": "travel",
+      "front": "[RULE-AIR-003] 非Preferred航司",
+      "back": "需附价格对比截图，Manager 批准后方可报销。",
+      "chapter": "ch03",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-112",
+      "category": "travel",
+      "front": "[RULE-AIR-004] Last-minute 预订",
+      "back": "<7天预订需 Pre-approval，并在 Concur 中注明原因。",
+      "chapter": "ch03",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-113",
+      "category": "travel",
+      "front": "[RULE-AIR-005] 未使用机票",
+      "back": "未使用的机票/积分必须在 24h 内报告，否则视为个人使用。",
+      "chapter": "ch03",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-114",
+      "category": "travel",
+      "front": "[RULE-RAIL-001] 高铁优先原则",
+      "back": "≤8h 车程的国内差旅，优先选择高铁而非飞机。",
+      "chapter": "ch04",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-115",
+      "category": "travel",
+      "front": "[RULE-GROUND-001] 企业账户优先",
+      "back": "Didi/高德企业账户可直接结算，无需个人垫付。",
+      "chapter": "ch04",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-116",
+      "category": "travel",
+      "front": "[RULE-GROUND-002] 出租车限额",
+      "back": "超限额需 Manager 批准并说明业务原因。",
+      "chapter": "ch04",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-117",
+      "category": "travel",
+      "front": "[RULE-GROUND-003] 租车审批",
+      "back": "所有租车需 Pre-approval，并选择 Full Coverage Insurance。",
+      "chapter": "ch04",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-118",
+      "category": "travel",
+      "front": "[RULE-HOTEL-001] Nightly Cap",
+      "back": "住宿费不得超过对应城市等级的 nightly cap。",
+      "chapter": "ch05",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-119",
+      "category": "travel",
+      "front": "[RULE-HOTEL-002] Preferred Hotel",
+      "back": "Preferred 酒店有协议价，应优先选择。",
+      "chapter": "ch05",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-120",
+      "category": "travel",
+      "front": "[RULE-HOTEL-003] Mini-bar 禁止",
+      "back": "Mini-bar 所有消费均为个人费用。",
+      "chapter": "ch05",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-121",
+      "category": "travel",
+      "front": "[RULE-BOOK-001] 指定渠道",
+      "back": "禁止通过携程/飞猪等个人渠道自行预订（除非 Pre-approved）。",
+      "chapter": "ch06",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-122",
+      "category": "travel",
+      "front": "[RULE-BOOK-002] 国际 Pre-approval",
+      "back": "所有国际出差必须 Pre-trip Approval。",
+      "chapter": "ch06",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-123",
+      "category": "travel",
+      "front": "[RULE-BOOK-003] Concur Request",
+      "back": "Pre-approval 应通过 Concur Request 提交，保留审批记录。",
+      "chapter": "ch06",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-124",
+      "category": "travel",
+      "front": "[RULE-BOOK-004] Travel Registration",
+      "back": "国际出差未完成 Registration 的费用可能被拒。",
+      "chapter": "ch06",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-125",
+      "category": "expense",
+      "front": "[RULE-MEAL-001] Daily Allowance",
+      "back": "Allowance 内费用无需收据，但须在 Concur 中正确分类。",
+      "chapter": "ch07",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-126",
+      "category": "expense",
+      "front": "[RULE-MEAL-002] 收据阈值",
+      "back": "单餐超过 ¥200/$50 必须附收据，无论是否在 Allowance 内。",
+      "chapter": "ch07",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-127",
+      "category": "expense",
+      "front": "[RULE-MEAL-003] Team Dinner",
+      "back": "Team Dinner 需 Pre-approval，注明参与人员和业务目的。",
+      "chapter": "ch07",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-128",
+      "category": "expense",
+      "front": "[RULE-MEAL-004] Alcohol",
+      "back": "仅 Client Entertainment 可报销酒精，Team/Personal 不可。",
+      "chapter": "ch07",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-129",
+      "category": "expense",
+      "front": "[RULE-CE-001] 业务关联",
+      "back": "Client Entertainment 必须与具体客户项目直接相关。",
+      "chapter": "ch08",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-130",
+      "category": "expense",
+      "front": "[RULE-CE-002] 人均限额",
+      "back": "不得超过对应活动类型的人均限额。",
+      "chapter": "ch08",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-131",
+      "category": "expense",
+      "front": "[RULE-CE-003] Anti-bribery",
+      "back": "遵守 FCPA 及中国反商业贿赂法规，禁止不当利益输送。",
+      "chapter": "ch08",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-132",
+      "category": "expense",
+      "front": "[RULE-CE-004] Documentation",
+      "back": "缺少参与人员名单或业务目的的 CE 报销将被拒。",
+      "chapter": "ch08",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-133",
+      "category": "expense",
+      "front": "[RULE-NR-001] 绝对禁止",
+      "back": "个人消费、家属费用、违规升级等绝对不可报销。",
+      "chapter": "ch09",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-134",
+      "category": "expense",
+      "front": "[RULE-NR-002] 例外审批",
+      "back": "Out-of-Policy 项目必须有书面 Pre-approval 记录。",
+      "chapter": "ch09",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-135",
+      "category": "expense",
+      "front": "[RULE-NR-003] 拒报处理",
+      "back": "被拒报的费用可在 14 天内 Appeal，附补充材料。",
+      "chapter": "ch09",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-136",
+      "category": "submission",
+      "front": "[RULE-SUB-001] Concur 唯一渠道",
+      "back": "所有费用报销必须通过 Concur 提交，不接受邮件/纸质报销。",
+      "chapter": "ch10",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-137",
+      "category": "submission",
+      "front": "[RULE-SUB-002] 30天规则",
+      "back": "超过 30 天未提交的费用需额外审批。",
+      "chapter": "ch10",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-138",
+      "category": "submission",
+      "front": "[RULE-SUB-003] Expense Type",
+      "back": "必须选择正确的 Expense Type，错误分类将导致拒报。",
+      "chapter": "ch10",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-139",
+      "category": "compliance",
+      "front": "[RULE-AUDIT-001] 审批链",
+      "back": "费用必须按金额和类型经过正确的审批链。",
+      "chapter": "ch11",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-140",
+      "category": "compliance",
+      "front": "[RULE-AUDIT-002] Pre-payment Audit",
+      "back": "GFOS 在付款前完成 Audit，发现问题直接退回。",
+      "chapter": "ch11",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-141",
+      "category": "compliance",
+      "front": "[RULE-AUDIT-003] Fraud 零容忍",
+      "back": "虚假报销将导致纪律处分，严重者解雇。",
+      "chapter": "ch11",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-142",
+      "category": "compliance",
+      "front": "[RULE-AUDIT-004] Appeal",
+      "back": "14 天内可 Appeal 被拒报项目，GFOS 在 5 工作日内回复。",
+      "chapter": "ch11",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-143",
+      "category": "china",
+      "front": "[RULE-CN-001] Fapiao 必须",
+      "back": "中国区所有 Out-of-pocket 报销必须附正规发票。",
+      "chapter": "ch12",
+      "difficulty": "hard",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-144",
+      "category": "china",
+      "front": "[RULE-CN-002] VAT 标记",
+      "back": "Concur 中须正确填写 VAT 金额和发票类型。",
+      "chapter": "ch12",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-145",
+      "category": "china",
+      "front": "[RULE-CN-003] 企业账户",
+      "back": "优先使用 Didi/高德企业账户，避免个人垫付。",
+      "chapter": "ch12",
+      "difficulty": "medium",
+      "auto_generated": true
+    },
+    {
+      "id": "fc-auto-146",
+      "category": "china",
+      "front": "[RULE-CN-004] TripSource",
+      "back": "中国区预订应使用 TripSource China。",
+      "chapter": "ch12",
+      "difficulty": "medium",
+      "auto_generated": true
+    }
+  ]
+}

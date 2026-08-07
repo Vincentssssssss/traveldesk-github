@@ -1,0 +1,37 @@
+{
+  "id": "ch11",
+  "title": "审批层级与审计合规",
+  "title_en": "Approval Hierarchy & Audit",
+  "category": "compliance",
+  "summary": "三级审批体系（Manager → Office Head → GFOS），GFOS 负责 Pre-payment Audit。",
+  "sections": [
+    {
+      "id": "ch11-s01",
+      "title": "审批层级",
+      "content": "| 审批类型 | 审批人 | 时效 |\n|---------|-------|------|\n| 常规费用 (<¥5,000) | Line Manager | 2 工作日 |\n| 大额费用 (¥5,000-20,000) | Line Manager + Office Head | 3 工作日 |\n| 超大额 (>¥20,000) | Line Manager + Office Head + GFOS | 5 工作日 |\n| Out-of-Policy | Line Manager (+ 上级如需) | 2 工作日 |\n| Client Entertainment | Project Leader/Partner | 2 工作日 |\n| 国际 Pre-trip | Line Manager | 3 工作日 |\n| Exception/Waiver | Office Head + GFOS | 5 工作日 |",
+      "key_points": ["三级审批", "按金额分级", "Out-of-Policy额外"],
+      "related_rules": ["RULE-AUDIT-001"]
+    },
+    {
+      "id": "ch11-s02",
+      "title": "GFOS T&E Audit 流程",
+      "content": "GFOS Global Finance Operations Centre (GFOC) 负责 Pre-payment Audit：\n\n1. **Automated Check** — Concur 系统自动 Policy Check\n2. **Manual Review** — GFOS 审计员人工复核 flagged 项目\n3. **Receipt Verification** — 核对收据与申报金额\n4. **Approval Verification** — 确认 Pre-approval 记录\n5. **Coding Check** — 验证 Cost Center / Project Code\n6. **Payment Processing** — 通过后进入 Payroll\n\n**Audit Rate**：约 30% 的报告被 Spot Check，100% 的 Out-of-Policy 被 Review。",
+      "key_points": ["Pre-payment Audit", "自动+人工", "30% Spot Check"],
+      "related_rules": ["RULE-AUDIT-002"]
+    },
+    {
+      "id": "ch11-s03",
+      "title": "违规处理",
+      "content": "| 违规级别 | 处理方式 |\n|---------|--------|\n| 轻微 (Missing receipt) | 退回补充，不影响记录 |\n| 一般 (Out-of-policy, no approval) | 拒报 + Manager 通知 |\n| 严重 (Duplicate, wrong coding) | 拒报 + HR 记录 |\n| 重大 (Fraud, false claim) | 拒报 + 纪律处分 + 可能解雇 |\n\n**Appeal 流程**：被拒报后 14 天内可提交 Appeal，附补充材料和说明。",
+      "key_points": ["分级处理", "Fraud最严重", "14天Appeal"],
+      "related_rules": ["RULE-AUDIT-003", "RULE-AUDIT-004"]
+    }
+  ],
+  "rules": [
+    {"id": "RULE-AUDIT-001", "title": "审批链", "description": "费用必须按金额和类型经过正确的审批链。", "severity": "critical"},
+    {"id": "RULE-AUDIT-002", "title": "Pre-payment Audit", "description": "GFOS 在付款前完成 Audit，发现问题直接退回。", "severity": "info"},
+    {"id": "RULE-AUDIT-003", "title": "Fraud 零容忍", "description": "虚假报销将导致纪律处分，严重者解雇。", "severity": "critical"},
+    {"id": "RULE-AUDIT-004", "title": "Appeal", "description": "14 天内可 Appeal 被拒报项目，GFOS 在 5 工作日内回复。", "severity": "info"}
+  ],
+  "keywords": ["audit", "approval", "GFOS", "compliance", "violation", "审计", "审批"]
+}
