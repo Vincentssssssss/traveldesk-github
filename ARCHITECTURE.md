@@ -56,10 +56,10 @@ customer_interaction → END
 
 ## Demo Mode
 
-When `ANTHROPIC_API_KEY` is absent or is the placeholder value, each agent's `_get_llm()` factory returns a `MockLLM` instance instead of `ChatAnthropic`. The `MockLLM` implements the same `.invoke(messages)` interface, so the agent code is unchanged.
+When `OPENAI_API_KEY` is absent or is the placeholder value, each agent's `_get_llm()` factory returns a `MockLLM` instance instead of `ChatOpenAI`. The `MockLLM` implements the same `.invoke(messages)` interface, so the agent code is unchanged.
 
 ```
-Real mode:  agent → ChatAnthropic.invoke() → Claude API → response
+Real mode:  agent → ChatOpenAI.invoke() → OpenAI-compatible API → response
 Demo mode:  agent → MockLLM.invoke()       → keyword logic → response
 ```
 
@@ -83,7 +83,7 @@ user query
 ### Production RAG flow (Phase 3 target)
 ```
 user query
-    → Query expansion (Claude)
+    → Query expansion (LLM)
     → Dense retrieval (Pinecone text-embedding-3-large)
     → Sparse retrieval (Elasticsearch BM25)
     → Hybrid reranking (Cohere Rerank v3)
@@ -162,7 +162,9 @@ The frontend is a single `frontend/index.html` file using Tailwind CSS (CDN) and
 
 | Variable | Used by | Notes |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | All agents | Empty = Demo Mode |
+| `OPENAI_API_KEY` | All agents | Empty = Demo Mode |
+| `OPENAI_BASE_URL` | LLM provider | Optional OpenAI-compatible endpoint base URL |
+| `OPENAI_MODEL` | LLM provider | Model/deployment name (default: `gpt-5.3-codex`) |
 | `ENVIRONMENT` | `main.py` | `development` enables auto-reload |
 | `LOG_LEVEL` | `main.py` | Python logging level |
 | `DATABASE_URL` | _(Phase 2)_ | PostgreSQL for persistent checkpointing |

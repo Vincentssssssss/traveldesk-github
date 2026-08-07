@@ -1,27 +1,17 @@
 from __future__ import annotations
 import json
-import os
 from functools import lru_cache
 from langchain_core.messages import SystemMessage, HumanMessage
+from agents.llm_provider import is_demo_mode, create_openai_chat, extract_text_content
 from models.state import TravelDeskState
-
-
-def _is_demo() -> bool:
-    key = os.environ.get("ANTHROPIC_API_KEY", "")
-    return not key or key.startswith("your_") or key == "test-key"
 
 
 @lru_cache(maxsize=1)
 def _get_llm():
-    if _is_demo():
+    if is_demo_mode():
         from agents.mock_llm import MockLLM
         return MockLLM(role="supervisor")
-    from langchain_anthropic import ChatAnthropic
-    return ChatAnthropic(
-        model="claude-haiku-4-5-20251001",
-        api_key=os.environ["ANTHROPIC_API_KEY"],
-        max_tokens=512,
-    )
+    return create_openai_chat(default_model="gpt-5.3-codex", max_tokens=512)
 
 
 SYSTEM_PROMPT = """You are the Supervisor Agent for a corporate Travel Desk AI system.
@@ -53,8 +43,8 @@ def supervisor_node(state: TravelDeskState) -> dict:
     ])
 
     try:
-        parsed = json.loads(response.content)
-    except (json.JSONDecodeError, AttributeError):
+        parsed = json.loads(extract_text_content(response))
+    except (json.JSONDecodeError, AttributeError, TypeError):
         parsed = {
             "intent": "general_faq",
             "sub_intent": None,

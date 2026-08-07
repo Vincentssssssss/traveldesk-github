@@ -102,8 +102,8 @@ class MockMessage:
 
 class MockLLM:
     """
-    Keyword-driven mock LLM. Used when ANTHROPIC_API_KEY is absent.
-    Supports the same .invoke() interface as ChatAnthropic.
+    Keyword-driven mock LLM. Used when OPENAI_API_KEY is absent.
+    Supports the same .invoke() interface as ChatOpenAI.
     """
 
     def __init__(self, role: str = "general"):

@@ -1,6 +1,13 @@
 # TravelDesk AI — Corporate Travel Support Platform
 
-> An AI-powered customer support system for corporate travel desks, built on **LangGraph** multi-agent orchestration and **Anthropic Claude**.
+> An AI-powered customer support system for corporate travel desks, built on **LangGraph** multi-agent orchestration and **OpenAI Codex**.
+
+## v1.0.0 Release
+
+- OpenAI Codex integration (replacing Anthropic dependency)
+- Azure OpenAI endpoint support (`/openai/v1` and `/openai/v1/responses`)
+- Stable Demo Mode fallback when no API key is configured
+- LLM output parsing compatibility fixes for Responses API content blocks
 
 ---
 
@@ -8,7 +15,7 @@
 
 TravelDesk AI automates corporate travel support through a team of specialized AI agents that collaborate to handle flight bookings, hotel search, travel policy queries, visa assistance, cancellations, and escalations — all from a single chat interface.
 
-The system runs fully in **Demo Mode** without an API key, using deterministic mock responses and realistic mock GDS data. Add an Anthropic API key to switch to live Claude AI responses instantly.
+The system runs fully in **Demo Mode** without an API key, using deterministic mock responses and realistic mock GDS data. Add an OpenAI-compatible API key to switch to live Codex responses instantly.
 
 ---
 
@@ -44,11 +51,11 @@ The system runs fully in **Demo Mode** without an API key, using deterministic m
 
 | Agent | Model | Responsibility |
 |---|---|---|
-| **Supervisor** | Claude Haiku | Intent classification, entity extraction, routing |
+| **Supervisor** | GPT-5.3 Codex | Intent classification, entity extraction, routing |
 | **Booking Agent** | _(no LLM)_ | Flight & hotel search against GDS mock data |
-| **Knowledge Agent** | Claude Haiku | FAQ & policy retrieval + RAG synthesis |
-| **Escalation Agent** | Claude Haiku | Ticket creation, human handoff, priority routing |
-| **Customer Interaction** | Claude Sonnet | Final response formatting and tone calibration |
+| **Knowledge Agent** | GPT-5.3 Codex | FAQ & policy retrieval + RAG synthesis |
+| **Escalation Agent** | GPT-5.3 Codex | Ticket creation, human handoff, priority routing |
+| **Customer Interaction** | GPT-5.3 Codex | Final response formatting and tone calibration |
 
 ### Graph Routing
 
@@ -99,7 +106,7 @@ traveldesk/
 ### Prerequisites
 
 - Python 3.9+
-- An Anthropic API key _(optional — runs in Demo Mode without one)_
+- An OpenAI-compatible API key _(optional — runs in Demo Mode without one)_
 
 ### 1. Clone and set up
 
@@ -128,7 +135,9 @@ cp .env.example .env
 Open `.env` and set your API key:
 
 ```
-ANTHROPIC_API_KEY=sk-ant-...
+OPENAI_API_KEY=your-openai-or-azure-key
+OPENAI_BASE_URL=https://foundry0805.services.ai.azure.com/openai/v1/responses
+OPENAI_MODEL=gpt-5.3-codex
 ```
 
 Leave the placeholder value to run in **Demo Mode** (no API calls, mock responses).
@@ -237,7 +246,7 @@ Returns full conversation history for a given session.
 | Layer | Technology |
 |---|---|
 | Agent Orchestration | [LangGraph](https://github.com/langchain-ai/langgraph) 0.6+ |
-| LLM Provider | [Anthropic Claude](https://www.anthropic.com) (Haiku 4.5 + Sonnet 4.6) |
+| LLM Provider | OpenAI-compatible endpoint (default `gpt-5.3-codex`) |
 | Backend Framework | [FastAPI](https://fastapi.tiangolo.com) |
 | ASGI Server | [Uvicorn](https://www.uvicorn.org) |
 | Frontend | Vanilla JS + [Tailwind CSS](https://tailwindcss.com) (CDN) |
@@ -250,10 +259,10 @@ Returns full conversation history for a given session.
 | Feature | Demo Mode | Live Mode |
 |---|---|---|
 | API key required | No | Yes |
-| Intent classification | Keyword matching | Claude Haiku |
-| Knowledge answers | Pre-written responses | Claude Haiku + retrieved context |
-| Escalation messages | Template-based | Claude Haiku |
-| Customer-facing response | Template | Claude Sonnet |
+| Intent classification | Keyword matching | GPT-5.3 Codex |
+| Knowledge answers | Pre-written responses | GPT-5.3 Codex + retrieved context |
+| Escalation messages | Template-based | GPT-5.3 Codex |
+| Customer-facing response | Template | GPT-5.3 Codex |
 | Flight / hotel data | Mock JSON | Mock JSON (Phase 1) |
 | Full LangGraph execution | Yes | Yes |
 | Agent pipeline visualization | Yes | Yes |
@@ -300,7 +309,9 @@ Returns full conversation history for a given session.
 
 | Environment Variable | Default | Description |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | _(empty)_ | Anthropic API key. Leave empty for Demo Mode. |
+| `OPENAI_API_KEY` | _(empty)_ | OpenAI or Azure OpenAI key. Leave empty for Demo Mode. |
+| `OPENAI_BASE_URL` | _(empty)_ | Optional OpenAI-compatible base URL (supports `/openai/v1` or `/openai/v1/responses`). |
+| `OPENAI_MODEL` | `gpt-5.3-codex` | Model/deployment name used for all LLM calls. |
 | `ENVIRONMENT` | `development` | `development` or `production` |
 | `LOG_LEVEL` | `INFO` | Python logging level |
 

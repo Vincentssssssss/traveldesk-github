@@ -15,6 +15,7 @@ from pydantic import BaseModel
 from langchain_core.messages import HumanMessage
 
 from graph.travel_graph import get_compiled_graph
+from agents.llm_provider import is_demo_mode
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -39,7 +40,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="TravelDesk AI",
     description="AI-powered corporate travel desk support platform",
-    version="0.1.0-mvp",
+    version="1.0.0",
     lifespan=lifespan,
 )
 
@@ -60,11 +61,13 @@ class ChatRequest(BaseModel):
     message: str
     conversation_id: Optional[str] = None
     customer_name: str = "Traveler"
+    language: str = "en"
 
 
 class ChatResponse(BaseModel):
     conversation_id: str
     response: str
+    language: str
     response_type: str
     intent: Optional[str]
     confidence: float
@@ -80,19 +83,14 @@ class ChatResponse(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-def _is_demo() -> bool:
-    key = os.environ.get("ANTHROPIC_API_KEY", "")
-    return not key or key.startswith("your_") or key == "test-key"
-
-
 @app.get("/health")
 async def health():
-    return {"status": "ok", "service": "TravelDesk AI MVP", "demo_mode": _is_demo()}
+    return {"status": "ok", "service": "TravelDesk AI v1.0", "demo_mode": is_demo_mode()}
 
 
 @app.get("/api/demo-status")
 async def demo_status():
-    return {"demo_mode": _is_demo()}
+    return {"demo_mode": is_demo_mode()}
 
 
 @app.post("/api/chat", response_model=ChatResponse)
@@ -103,10 +101,13 @@ async def chat(req: ChatRequest):
     conversation_id = req.conversation_id or str(uuid.uuid4())
     config = {"configurable": {"thread_id": conversation_id}}
 
+    language = "zh" if req.language.lower().startswith("zh") else "en"
+
     initial_state = {
         "messages": [HumanMessage(content=req.message)],
         "conversation_id": conversation_id,
         "customer_name": req.customer_name,
+        "language": language,
         "intent": None,
         "sub_intent": None,
         "confidence": 0.0,
@@ -146,6 +147,8 @@ async def chat(req: ChatRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
     response_text = final_state.get("final_response") or "I'm here to help with your travel needs."
+    if language == "zh" and not final_state.get("final_response"):
+        response_text = "我可以帮您处理差旅相关问题。"
     escalation_data = None
     if final_state.get("response_type") == "escalation" and final_state.get("knowledge_results"):
         escalation_data = final_state["knowledge_results"]
@@ -153,6 +156,7 @@ async def chat(req: ChatRequest):
     return ChatResponse(
         conversation_id=conversation_id,
         response=response_text,
+        language=final_state.get("language", language),
         response_type=final_state.get("response_type", "text"),
         intent=final_state.get("intent"),
         confidence=final_state.get("confidence", 0.0),
