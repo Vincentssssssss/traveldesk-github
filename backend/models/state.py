@@ -7,6 +7,7 @@ class TravelDeskState(TypedDict):
     messages: Annotated[list, add_messages]
     conversation_id: str
     customer_name: str
+    language: str  # en | zh
 
     # Intent classification
     intent: Optional[str]

@@ -25,6 +25,7 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
 
     response_type = state.get("response_type", "text")
     customer_name = state.get("customer_name", "there")
+    is_zh = state.get("language", "en").lower().startswith("zh")
 
     last_message = state["messages"][-1]
     user_text = last_message.content if hasattr(last_message, "content") else str(last_message)
@@ -33,6 +34,7 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
         results = state.get("search_results", [])
         count = len(results)
         item_type = "flight options" if response_type == "flights" else "hotel options"
+        item_type_zh = "机票选项" if response_type == "flights" else "酒店选项"
         non_compliant = [r for r in results if not r.get("policy_compliant", True)]
         compliant_count = count - len(non_compliant)
 
@@ -42,6 +44,18 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
                 f" {len(non_compliant)} option(s) exceed policy limits and will need manager approval."
                 if non_compliant else ""
             )
+            if is_zh:
+                approval_note = (
+                    f" 其中有 {len(non_compliant)} 个选项超出差旅政策限制，需要经理审批。"
+                    if non_compliant else ""
+                )
+                return {
+                    "final_response": (
+                        f"我为您找到了 {count} 个{item_type_zh}，{customer_name}。"
+                        f"其中 {compliant_count} 个完全符合公司差旅政策。{approval_note} "
+                        f"请查看下方选项并点击 **Select** 选择您的偏好。"
+                    )
+                }
             return {
                 "final_response": (
                     f"I found {count} {item_type} for you, {customer_name}. "
@@ -50,8 +64,9 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
                 )
             }
 
+        language_instruction = "Respond in Simplified Chinese." if is_zh else "Respond in English."
         response = _get_llm().invoke([
-            SystemMessage(content=SYSTEM_PROMPT),
+            SystemMessage(content=f"{SYSTEM_PROMPT}\n{language_instruction}"),
             HumanMessage(content=(
                 f"Customer ({customer_name}) asked: {user_text}\n\n"
                 f"Found {count} {item_type}, {compliant_count} policy-compliant, "
@@ -65,8 +80,9 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
     if state.get("final_response"):
         return {}
 
+    language_instruction = "Respond in Simplified Chinese." if is_zh else "Respond in English."
     response = _get_llm().invoke([
-        SystemMessage(content=SYSTEM_PROMPT),
+        SystemMessage(content=f"{SYSTEM_PROMPT}\n{language_instruction}"),
         HumanMessage(content=f"Customer asked: {user_text}\nPlease help them."),
     ])
     return {"final_response": extract_text_content(response)}

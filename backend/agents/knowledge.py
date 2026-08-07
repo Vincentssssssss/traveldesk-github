@@ -18,6 +18,10 @@ SYSTEM_PROMPT = """You are the Knowledge Agent for a corporate Travel Desk.
 Answer using ONLY the provided context. Never invent policy details."""
 
 
+def _is_zh(state: TravelDeskState) -> bool:
+    return state.get("language", "en").lower().startswith("zh")
+
+
 def knowledge_agent_node(state: TravelDeskState) -> dict:
     last_message = state["messages"][-1]
     user_text = last_message.content if hasattr(last_message, "content") else str(last_message)
@@ -35,14 +39,21 @@ def knowledge_agent_node(state: TravelDeskState) -> dict:
     knowledge_results = faqs + policies
 
     if not knowledge_results:
-        return {
-            "knowledge_results": [],
-            "response_type": "text",
-            "final_response": (
+        if _is_zh(state):
+            no_result_message = (
+                "我暂时没有在知识库中找到与此问题完全匹配的信息。"
+                "我会为您转接人工差旅专员，工作时间内预计 30 分钟内回复。"
+            )
+        else:
+            no_result_message = (
                 "I don't have specific information on this in my knowledge base. "
                 "Let me connect you with a human travel specialist — "
                 "expect a response within 30 minutes during business hours."
-            ),
+            )
+        return {
+            "knowledge_results": [],
+            "response_type": "text",
+            "final_response": no_result_message,
             "escalated": True,
             "escalation_reason": "Knowledge not found in base",
         }
@@ -51,16 +62,26 @@ def knowledge_agent_node(state: TravelDeskState) -> dict:
     context_parts = []
     for item in knowledge_results:
         if "question" in item:
-            context_parts.append(f"Q: {item['question']}\nA: {item['answer']}")
+            if _is_zh(state) and item.get("question_zh") and item.get("answer_zh"):
+                context_parts.append(f"Q: {item['question_zh']}\nA: {item['answer_zh']}")
+            else:
+                context_parts.append(f"Q: {item['question']}\nA: {item['answer']}")
         elif "title" in item:
-            desc = item.get("description", "")
+            desc = item.get("description_zh", "") if _is_zh(state) else item.get("description", "")
             exceptions = item.get("exceptions", [])
             exc_text = "\nExceptions: " + "; ".join(exceptions) if exceptions else ""
-            context_parts.append(f"Policy — {item['title']}: {desc}{exc_text}")
+            title = item.get("title_zh", item["title"]) if _is_zh(state) else item["title"]
+            context_parts.append(f"Policy — {title}: {desc}{exc_text}")
     context = "\n\n---\n\n".join(context_parts)
 
+    language_instruction = (
+        "Respond in Simplified Chinese."
+        if _is_zh(state)
+        else "Respond in English."
+    )
+
     response = _get_llm().invoke([
-        SystemMessage(content=SYSTEM_PROMPT),
+        SystemMessage(content=f"{SYSTEM_PROMPT}\n{language_instruction}"),
         HumanMessage(content=f"CONTEXT:\n{context}\n\nQUESTION: {user_text}"),
     ])
 

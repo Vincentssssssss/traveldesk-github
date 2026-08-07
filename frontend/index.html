@@ -32,10 +32,10 @@
   <div id="demo-banner" class="hidden bg-amber-50 border-b border-amber-200 px-6 py-2 flex items-center justify-between">
     <div class="flex items-center gap-2 text-xs text-amber-800">
       <span class="font-bold">🔶 DEMO MODE</span>
-      <span>— Running with mock responses. Add your OpenAI API key to .env for full AI responses.</span>
+      <span id="demo-banner-text">— Running with mock responses. Add your OpenAI API key to .env for full AI responses.</span>
     </div>
     <button onclick="document.getElementById('demo-banner').classList.add('hidden')"
-      class="text-amber-500 hover:text-amber-700 text-xs font-medium">Dismiss</button>
+      class="text-amber-500 hover:text-amber-700 text-xs font-medium" id="demo-banner-dismiss">Dismiss</button>
   </div>
 
   <!-- Header -->
@@ -49,10 +49,17 @@
       </div>
       <div>
         <h1 class="text-base font-semibold text-slate-800">TravelDesk AI</h1>
-        <p class="text-xs text-slate-500">Corporate Travel Support Platform</p>
+        <p class="text-xs text-slate-500" id="subtitle-text">Corporate Travel Support Platform</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
+      <button
+        id="language-toggle"
+        onclick="toggleLanguage()"
+        class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full px-3 py-1.5 font-medium transition-colors"
+      >
+        中文
+      </button>
       <div id="agent-pipeline" class="hidden md:flex items-center gap-1.5 text-xs text-slate-500 bg-slate-100 rounded-full px-3 py-1.5">
         <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
         <span id="pipeline-text">Ready</span>
@@ -71,37 +78,37 @@
     <!-- Sidebar -->
     <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden lg:flex">
       <div class="p-4 border-b border-slate-100">
-        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Quick Actions</p>
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3" id="quick-actions-title">Quick Actions</p>
         <div class="space-y-1.5">
-          <button onclick="sendQuickAction('I need to book a flight from New York to Los Angeles next week')"
+          <button onclick="sendQuickActionByType('flight')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>✈️</span> Book a Flight
+            <span>✈️</span> <span id="qa-flight">Book a Flight</span>
           </button>
-          <button onclick="sendQuickAction('I need to find a hotel in Los Angeles for 3 nights')"
+          <button onclick="sendQuickActionByType('hotel')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>🏨</span> Book a Hotel
+            <span>🏨</span> <span id="qa-hotel">Book a Hotel</span>
           </button>
-          <button onclick="sendQuickAction('What is the company policy on business class travel?')"
+          <button onclick="sendQuickActionByType('policy')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>📋</span> Travel Policy
+            <span>📋</span> <span id="qa-policy">Travel Policy</span>
           </button>
-          <button onclick="sendQuickAction('I need to apply for an India visa for my business trip')"
+          <button onclick="sendQuickActionByType('visa')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>🪪</span> Visa Assistance
+            <span>🪪</span> <span id="qa-visa">Visa Assistance</span>
           </button>
-          <button onclick="sendQuickAction('I need to cancel my upcoming trip and get a refund')"
+          <button onclick="sendQuickActionByType('cancel')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>↩️</span> Cancel / Refund
+            <span>↩️</span> <span id="qa-cancel">Cancel / Refund</span>
           </button>
-          <button onclick="sendQuickAction('How do I submit my travel expenses for reimbursement?')"
+          <button onclick="sendQuickActionByType('expense')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>💳</span> Expense Claims
+            <span>💳</span> <span id="qa-expense">Expense Claims</span>
           </button>
         </div>
       </div>
 
       <div class="p-4 flex-1">
-        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Agent Pipeline</p>
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3" id="agent-pipeline-title">Agent Pipeline</p>
         <div class="space-y-2" id="agent-status-list">
           <div class="agent-item flex items-center gap-2 text-xs text-slate-400" id="status-supervisor">
             <div class="w-2 h-2 rounded-full bg-slate-200"></div>
@@ -158,18 +165,18 @@
             </div>
             <div class="max-w-xl">
               <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-slate-100">
-                <p class="text-sm text-slate-800 font-medium mb-1">Welcome to TravelDesk AI 👋</p>
-                <p class="text-sm text-slate-600">
+                <p class="text-sm text-slate-800 font-medium mb-1" id="welcome-title">Welcome to TravelDesk AI 👋</p>
+                <p class="text-sm text-slate-600" id="welcome-desc">
                   I'm your AI-powered corporate travel assistant. I can help you with:
                 </p>
                 <ul class="mt-2 space-y-1 text-sm text-slate-600">
-                  <li class="flex items-center gap-2"><span class="text-indigo-500">✈️</span> Flight & hotel search</li>
-                  <li class="flex items-center gap-2"><span class="text-indigo-500">📋</span> Travel policy queries</li>
-                  <li class="flex items-center gap-2"><span class="text-indigo-500">🪪</span> Visa assistance</li>
-                  <li class="flex items-center gap-2"><span class="text-indigo-500">↩️</span> Cancellations & refunds</li>
-                  <li class="flex items-center gap-2"><span class="text-indigo-500">💳</span> Expense guidance</li>
+                  <li class="flex items-center gap-2"><span class="text-indigo-500">✈️</span> <span id="welcome-li-1">Flight & hotel search</span></li>
+                  <li class="flex items-center gap-2"><span class="text-indigo-500">📋</span> <span id="welcome-li-2">Travel policy queries</span></li>
+                  <li class="flex items-center gap-2"><span class="text-indigo-500">🪪</span> <span id="welcome-li-3">Visa assistance</span></li>
+                  <li class="flex items-center gap-2"><span class="text-indigo-500">↩️</span> <span id="welcome-li-4">Cancellations & refunds</span></li>
+                  <li class="flex items-center gap-2"><span class="text-indigo-500">💳</span> <span id="welcome-li-5">Expense guidance</span></li>
                 </ul>
-                <p class="text-sm text-slate-600 mt-2">How can I help you today?</p>
+                <p class="text-sm text-slate-600 mt-2" id="welcome-end">How can I help you today?</p>
               </div>
               <p class="text-xs text-slate-400 mt-1 ml-1">TravelDesk AI • Now</p>
             </div>
@@ -220,7 +227,7 @@
             </svg>
           </button>
         </div>
-        <p class="text-xs text-slate-400 mt-2">Powered by OpenAI Codex · LangGraph Orchestration · Corporate Travel Policy Aware</p>
+        <p class="text-xs text-slate-400 mt-2" id="powered-by">Powered by OpenAI Codex · LangGraph Orchestration · Corporate Travel Policy Aware</p>
       </div>
     </main>
 
@@ -238,10 +245,10 @@
         </div>
         <div>
           <h2 class="text-xl font-bold text-slate-800">TravelDesk AI</h2>
-          <p class="text-sm text-slate-500">Corporate Travel Support</p>
+          <p class="text-sm text-slate-500" id="name-modal-subtitle">Corporate Travel Support</p>
         </div>
       </div>
-      <p class="text-slate-600 mb-6 text-sm">Welcome! Please enter your name to personalize your experience.</p>
+      <p class="text-slate-600 mb-6 text-sm" id="name-modal-desc">Welcome! Please enter your name to personalize your experience.</p>
       <input
         id="name-input"
         type="text"
@@ -253,7 +260,7 @@
         onclick="startChat()"
         class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-xl text-sm transition-colors"
       >
-        Start Chat →
+        <span id="start-chat-text">Start Chat →</span>
       </button>
     </div>
   </div>
@@ -264,13 +271,143 @@
     // ---------------------------------------------------------------------------
     let conversationId = null;
     let customerName = "Traveler";
+    let currentLanguage = localStorage.getItem('traveldesk_lang') || 'en';
     let isLoading = false;
     const API_BASE = window.location.origin;
+    const I18N = {
+      en: {
+        subtitle: 'Corporate Travel Support Platform',
+        quickActionsTitle: 'Quick Actions',
+        qaFlight: 'Book a Flight',
+        qaHotel: 'Book a Hotel',
+        qaPolicy: 'Travel Policy',
+        qaVisa: 'Visa Assistance',
+        qaCancel: 'Cancel / Refund',
+        qaExpense: 'Expense Claims',
+        agentPipelineTitle: 'Agent Pipeline',
+        welcomeTitle: 'Welcome to TravelDesk AI 👋',
+        welcomeDesc: "I'm your AI-powered corporate travel assistant. I can help you with:",
+        welcomeLi1: 'Flight & hotel search',
+        welcomeLi2: 'Travel policy queries',
+        welcomeLi3: 'Visa assistance',
+        welcomeLi4: 'Cancellations & refunds',
+        welcomeLi5: 'Expense guidance',
+        welcomeEnd: 'How can I help you today?',
+        inputPlaceholder: 'Ask about flights, hotels, policies, visas...',
+        poweredBy: 'Powered by OpenAI Codex · LangGraph Orchestration · Corporate Travel Policy Aware',
+        nameModalSubtitle: 'Corporate Travel Support',
+        nameModalDesc: 'Welcome! Please enter your name to personalize your experience.',
+        namePlaceholder: 'Your full name (e.g., Sarah Johnson)',
+        startChat: 'Start Chat →',
+        demoBannerText: '— Running with mock responses. Add your OpenAI API key to .env for full AI responses.',
+        demoBannerDismiss: 'Dismiss',
+        routing: 'Routing...',
+        processing: 'Processing...',
+        connectionError: 'Connection Error',
+        backendHint: 'Make sure the backend is running on port 8000.',
+        ready: 'Ready',
+      },
+      zh: {
+        subtitle: '企业差旅支持平台',
+        quickActionsTitle: '快捷操作',
+        qaFlight: '预订机票',
+        qaHotel: '预订酒店',
+        qaPolicy: '差旅政策',
+        qaVisa: '签证协助',
+        qaCancel: '取消 / 退款',
+        qaExpense: '费用报销',
+        agentPipelineTitle: 'Agent 流程',
+        welcomeTitle: '欢迎使用 TravelDesk AI 👋',
+        welcomeDesc: '我是您的企业差旅 AI 助手，我可以帮您处理：',
+        welcomeLi1: '机票与酒店查询',
+        welcomeLi2: '差旅政策咨询',
+        welcomeLi3: '签证办理协助',
+        welcomeLi4: '行程取消与退款',
+        welcomeLi5: '差旅报销指引',
+        welcomeEnd: '今天我可以怎么帮您？',
+        inputPlaceholder: '可咨询机票、酒店、差旅政策、签证等...',
+        poweredBy: 'Powered by OpenAI Codex · LangGraph 编排 · 企业差旅政策感知',
+        nameModalSubtitle: '企业差旅支持',
+        nameModalDesc: '欢迎使用！请输入您的姓名以获得个性化服务。',
+        namePlaceholder: '请输入姓名（例如：王小明）',
+        startChat: '开始对话 →',
+        demoBannerText: '— 当前为演示模式。请在 .env 中配置 OpenAI API Key 以启用完整 AI 回复。',
+        demoBannerDismiss: '关闭',
+        routing: '正在路由...',
+        processing: '处理中...',
+        connectionError: '连接错误',
+        backendHint: '请确认后端已在 8000 端口运行。',
+        ready: '就绪',
+      },
+    };
+    const QUICK_ACTION_MESSAGES = {
+      en: {
+        flight: 'I need to book a flight from New York to Los Angeles next week',
+        hotel: 'I need to find a hotel in Los Angeles for 3 nights',
+        policy: 'What is the company policy on business class travel?',
+        visa: 'I need to apply for an India visa for my business trip',
+        cancel: 'I need to cancel my upcoming trip and get a refund',
+        expense: 'How do I submit my travel expenses for reimbursement?',
+      },
+      zh: {
+        flight: '我下周需要从纽约飞洛杉矶，请帮我查机票。',
+        hotel: '请帮我找洛杉矶住 3 晚的酒店。',
+        policy: '请问公司商务舱差旅政策是什么？',
+        visa: '我有商务出行，需要申请印度签证。',
+        cancel: '我需要取消即将开始的行程并申请退款。',
+        expense: '差旅费用该如何提交报销？',
+      },
+    };
+
+    function t(key) {
+      return (I18N[currentLanguage] && I18N[currentLanguage][key]) || I18N.en[key] || key;
+    }
+
+    function applyLanguage() {
+      document.documentElement.lang = currentLanguage === 'zh' ? 'zh-CN' : 'en';
+      document.getElementById('language-toggle').textContent = currentLanguage === 'zh' ? 'EN' : '中文';
+      document.getElementById('subtitle-text').textContent = t('subtitle');
+      document.getElementById('quick-actions-title').textContent = t('quickActionsTitle');
+      document.getElementById('qa-flight').textContent = t('qaFlight');
+      document.getElementById('qa-hotel').textContent = t('qaHotel');
+      document.getElementById('qa-policy').textContent = t('qaPolicy');
+      document.getElementById('qa-visa').textContent = t('qaVisa');
+      document.getElementById('qa-cancel').textContent = t('qaCancel');
+      document.getElementById('qa-expense').textContent = t('qaExpense');
+      document.getElementById('agent-pipeline-title').textContent = t('agentPipelineTitle');
+      document.getElementById('welcome-title').textContent = t('welcomeTitle');
+      document.getElementById('welcome-desc').textContent = t('welcomeDesc');
+      document.getElementById('welcome-li-1').textContent = t('welcomeLi1');
+      document.getElementById('welcome-li-2').textContent = t('welcomeLi2');
+      document.getElementById('welcome-li-3').textContent = t('welcomeLi3');
+      document.getElementById('welcome-li-4').textContent = t('welcomeLi4');
+      document.getElementById('welcome-li-5').textContent = t('welcomeLi5');
+      document.getElementById('welcome-end').textContent = t('welcomeEnd');
+      document.getElementById('message-input').placeholder = t('inputPlaceholder');
+      document.getElementById('powered-by').textContent = t('poweredBy');
+      document.getElementById('name-modal-subtitle').textContent = t('nameModalSubtitle');
+      document.getElementById('name-modal-desc').textContent = t('nameModalDesc');
+      document.getElementById('name-input').placeholder = t('namePlaceholder');
+      document.getElementById('start-chat-text').textContent = t('startChat');
+      document.getElementById('demo-banner-text').textContent = t('demoBannerText');
+      document.getElementById('demo-banner-dismiss').textContent = t('demoBannerDismiss');
+      document.getElementById('typing-status').textContent = t('processing');
+      if (!document.getElementById('agent-pipeline').classList.contains('hidden')) {
+        updateAgentPipeline(t('ready'));
+      }
+    }
+
+    function toggleLanguage() {
+      currentLanguage = currentLanguage === 'en' ? 'zh' : 'en';
+      localStorage.setItem('traveldesk_lang', currentLanguage);
+      applyLanguage();
+    }
 
     // ---------------------------------------------------------------------------
     // Startup
     // ---------------------------------------------------------------------------
     window.onload = async () => {
+      applyLanguage();
       document.getElementById('name-input').focus();
       try {
         const res = await fetch(`${API_BASE}/api/demo-status`);
@@ -309,6 +446,12 @@
       await sendMessage();
     }
 
+    async function sendQuickActionByType(type) {
+      const messages = QUICK_ACTION_MESSAGES[currentLanguage] || QUICK_ACTION_MESSAGES.en;
+      document.getElementById('message-input').value = messages[type];
+      await sendMessage();
+    }
+
     async function sendMessage() {
       const input = document.getElementById('message-input');
       const text = input.value.trim();
@@ -321,7 +464,7 @@
 
       appendUserMessage(text);
       showTyping(true);
-      updateAgentPipeline("Routing...");
+      updateAgentPipeline(t('routing'));
 
       try {
         const res = await fetch(`${API_BASE}/api/chat`, {
@@ -331,6 +474,7 @@
             message: text,
             conversation_id: conversationId,
             customer_name: customerName,
+            language: currentLanguage,
           }),
         });
 
@@ -420,9 +564,9 @@
             <span class="text-white text-xs font-bold">!</span>
           </div>
           <div class="bg-red-50 border border-red-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-xl">
-            <p class="text-sm text-red-700 font-medium">Connection Error</p>
+            <p class="text-sm text-red-700 font-medium">${escapeHtml(t('connectionError'))}</p>
             <p class="text-sm text-red-600 mt-1">${escapeHtml(msg)}</p>
-            <p class="text-xs text-red-400 mt-2">Make sure the backend is running on port 8000.</p>
+            <p class="text-xs text-red-400 mt-2">${escapeHtml(t('backendHint'))}</p>
           </div>
         </div>`;
       container.appendChild(div);
@@ -564,12 +708,19 @@
         expense_query: '💳', cancellation: '↩️', refund_inquiry: '💰',
         complaint: '⚠️', emergency: '🚨', itinerary_query: '📅',
       };
-      const labels = {
+      const labelsEn = {
         flight_search: 'Flight Search', hotel_search: 'Hotel Search', cab_request: 'Ground Transport',
         visa_inquiry: 'Visa Inquiry', policy_query: 'Policy Query', general_faq: 'FAQ',
         expense_query: 'Expense Query', cancellation: 'Cancellation', refund_inquiry: 'Refund',
         complaint: 'Complaint', emergency: 'Emergency', itinerary_query: 'Itinerary',
       };
+      const labelsZh = {
+        flight_search: '机票查询', hotel_search: '酒店查询', cab_request: '地面交通',
+        visa_inquiry: '签证咨询', policy_query: '政策咨询', general_faq: '常见问题',
+        expense_query: '报销咨询', cancellation: '取消行程', refund_inquiry: '退款咨询',
+        complaint: '投诉', emergency: '紧急情况', itinerary_query: '行程查询',
+      };
+      const labels = currentLanguage === 'zh' ? labelsZh : labelsEn;
       const icon = icons[intent] || '💬';
       const label = labels[intent] || intent.replace(/_/g, ' ');
       const pct = Math.round((confidence || 0) * 100);
@@ -602,7 +753,7 @@
       });
 
       const pipelineText = path.map(a => a.replace(/_/g, ' ')).join(' → ');
-      updateAgentPipeline(pipelineText || 'Ready');
+      updateAgentPipeline(pipelineText || t('ready'));
     }
 
     function updateAgentPipeline(text) {
@@ -619,8 +770,12 @@
 
     function selectOption(type, id) {
       const msg = type === 'flight'
-        ? `I'd like to select flight ${id}. Please proceed with the booking.`
-        : `I'd like to book hotel ${id}. Please proceed.`;
+        ? (currentLanguage === 'zh'
+          ? `我想选择航班 ${id}，请继续预订流程。`
+          : `I'd like to select flight ${id}. Please proceed with the booking.`)
+        : (currentLanguage === 'zh'
+          ? `我想预订酒店 ${id}，请继续。`
+          : `I'd like to book hotel ${id}. Please proceed.`);
       document.getElementById('message-input').value = msg;
       sendMessage();
     }
