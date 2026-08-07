@@ -3,6 +3,7 @@ import os
 from functools import lru_cache
 from langchain_core.messages import SystemMessage, HumanMessage
 from tools.knowledge_base import search_faqs, search_policies
+from tools.gc_te_knowledge import search_gc_te_policy
 from models.state import TravelDeskState
 
 
@@ -24,8 +25,29 @@ def _get_llm():
     )
 
 
-SYSTEM_PROMPT = """You are the Knowledge Agent for a corporate Travel Desk.
-Answer using ONLY the provided context. Never invent policy details."""
+SYSTEM_PROMPT = """You are the Knowledge Agent for BCG Global China Travel Desk.
+Answer using ONLY the provided context from GC TE Policy and related FAQs.
+Never invent policy details. Prefer GC TE Policy content when available.
+Respond in the same language the user used (Chinese or English)."""
+
+
+def _build_context_item(item: dict) -> str:
+    if item.get("source") == "gc_te":
+        header = f"GC TE Policy — {item['title']}"
+        body = item.get("content", "")
+        if item.get("key_points"):
+            body += "\n要点: " + "; ".join(item["key_points"])
+        if item.get("severity"):
+            body += f"\n(级别: {item['severity']})"
+        return f"{header}\n{body}"
+    if "question" in item:
+        return f"Q: {item['question']}\nA: {item['answer']}"
+    if "title" in item:
+        desc = item.get("description", "")
+        exceptions = item.get("exceptions", [])
+        exc_text = "\nExceptions: " + "; ".join(exceptions) if exceptions else ""
+        return f"Policy — {item['title']}: {desc}{exc_text}"
+    return str(item)
 
 
 def knowledge_agent_node(state: TravelDeskState) -> dict:
@@ -42,7 +64,8 @@ def knowledge_agent_node(state: TravelDeskState) -> dict:
 
     faqs = search_faqs(user_text)
     policies = search_policies(user_text, category=category)
-    knowledge_results = faqs + policies
+    gc_te = search_gc_te_policy(user_text, intent=intent, limit=3)
+    knowledge_results = gc_te + policies + faqs
 
     if not knowledge_results:
         return {
@@ -58,15 +81,7 @@ def knowledge_agent_node(state: TravelDeskState) -> dict:
         }
 
     # Build context for LLM (or mock)
-    context_parts = []
-    for item in knowledge_results:
-        if "question" in item:
-            context_parts.append(f"Q: {item['question']}\nA: {item['answer']}")
-        elif "title" in item:
-            desc = item.get("description", "")
-            exceptions = item.get("exceptions", [])
-            exc_text = "\nExceptions: " + "; ".join(exceptions) if exceptions else ""
-            context_parts.append(f"Policy — {item['title']}: {desc}{exc_text}")
+    context_parts = [_build_context_item(item) for item in knowledge_results]
     context = "\n\n---\n\n".join(context_parts)
 
     response = _get_llm().invoke([

@@ -15,8 +15,10 @@ INTENT_KEYWORDS = {
     "visa_inquiry":    ["visa", "passport", "immigration", "entry requirement", "work permit"],
     "cancellation":    ["cancel", "cancellation", "call off", "abort trip"],
     "refund_inquiry":  ["refund", "money back", "reimburse", "credit"],
-    "policy_query":    ["policy", "rule", "allowed", "permitted", "guideline", "eligible", "business class"],
-    "expense_query":   ["expense", "claim", "receipt", "concur", "reimbursement", "per diem"],
+    "policy_query":    ["policy", "rule", "allowed", "permitted", "guideline", "eligible", "business class",
+                         "政策", "规定", "舱位", "商务舱", "经济舱", "报销", "限额", "fapiao", "发票"],
+    "expense_query":   ["expense", "claim", "receipt", "concur", "reimbursement", "per diem",
+                         "费用", "报销", "收据", "concur", "津贴", "allowance"],
     "itinerary_query": ["itinerary", "booking status", "my trip", "pnr", "confirmation"],
     "complaint":       ["frustrated", "angry", "terrible", "horrible", "unacceptable", "complain", "disgusted"],
     "emergency":       ["emergency", "urgent", "stranded", "stuck", "help now", "missed connection", "missed my", "i am stranded", "flight was cancelled", "flight got cancelled"],
@@ -110,18 +112,19 @@ class MockLLM:
         self.role = role  # supervisor | knowledge | escalation | customer_interaction
 
     def invoke(self, messages: List[Any], **kwargs) -> MockMessage:
-        # Extract user text from the last HumanMessage
         user_text = ""
+        user_text_raw = ""
         for msg in reversed(messages):
             content = msg.content if hasattr(msg, "content") else str(msg)
             if content and not content.startswith("You are"):
+                user_text_raw = content
                 user_text = content.lower()
                 break
 
         if self.role == "supervisor":
             return MockMessage(self._classify(user_text))
         elif self.role == "knowledge":
-            return MockMessage(self._knowledge_answer(user_text))
+            return MockMessage(self._knowledge_answer(user_text_raw))
         elif self.role == "escalation":
             return MockMessage(self._escalation_message(messages))
         else:
@@ -185,13 +188,54 @@ class MockLLM:
         return json.dumps(result)
 
     def _knowledge_answer(self, text: str) -> str:
+        if "CONTEXT:" in text and "QUESTION:" in text:
+            return self._answer_from_context(text)
+
         text_lower = text.lower()
-        # Pick best matching canned response
         for intent, keywords in INTENT_KEYWORDS.items():
             if any(kw in text_lower for kw in keywords):
                 if intent in KNOWLEDGE_RESPONSES:
                     return KNOWLEDGE_RESPONSES[intent]
         return KNOWLEDGE_RESPONSES["general_faq"]
+
+    def _answer_from_context(self, text: str) -> str:
+        """Demo mode: build answer from retrieved GC TE / policy context."""
+        context_match = re.search(r"CONTEXT:\s*(.+?)\n\nQUESTION:", text, re.DOTALL | re.IGNORECASE)
+        context = context_match.group(1).strip() if context_match else ""
+
+        if not context:
+            return KNOWLEDGE_RESPONSES.get("general_faq", "No matching policy found.")
+
+        blocks = [b.strip() for b in context.split("---") if b.strip()]
+        lines = ["根据 GC TE Policy，以下是与您问题相关的政策内容：\n"]
+
+        for block in blocks[:3]:
+            block_lines = [ln for ln in block.split("\n") if ln.strip()]
+            if not block_lines:
+                continue
+            header = block_lines[0].replace("GC TE Policy — ", "").replace("Policy — ", "")
+            lines.append(f"**{header}**")
+
+            body_lines = []
+            for ln in block_lines[1:]:
+                stripped = ln.strip()
+                if not stripped or re.match(r"^[\|\-\s:·]+$", stripped):
+                    continue
+                if stripped.startswith("|") and stripped.endswith("|"):
+                    cells = [c.strip() for c in stripped.strip("|").split("|") if c.strip() and not re.match(r"^[-:\s]+$", c.strip())]
+                    if cells:
+                        body_lines.append(" · ".join(cells))
+                else:
+                    body_lines.append(stripped)
+
+            body = " ".join(body_lines[:6]).strip()
+            if body:
+                preview = body[:500] + ("..." if len(body) > 500 else "")
+                lines.append(preview)
+            lines.append("")
+
+        lines.append("如需更多细节，请访问 **/kb** 学习中心或继续提问。")
+        return "\n".join(lines)
 
     def _escalation_message(self, messages: List[Any]) -> str:
         # Extract escalation_id from last human message context
