@@ -67,8 +67,7 @@ def booking_agent_node(state: TravelDeskState) -> dict:
         "search_results": [],
         "response_type": "text",
         "final_response": (
-            "For ground transportation, I can arrange a corporate cab or rideshare. "
-            "Our preferred providers are Uber for Business and our contracted cab vendors. "
-            "Please provide your pickup location, destination, and required time, and I'll book it for you."
+            "关于地面交通，我可以为您安排企业用车或网约车服务。"
+            "请提供上车地点、目的地和用车时间，我会继续为您处理。"
         ),
     }

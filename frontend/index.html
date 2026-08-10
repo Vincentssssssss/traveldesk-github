@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TravelDesk AI — Corporate Travel Support</title>
+  <title>TravelDesk AI — 企业差旅支持</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -31,11 +31,11 @@
   <!-- Demo mode banner (shown only in demo mode) -->
   <div id="demo-banner" class="hidden bg-amber-50 border-b border-amber-200 px-6 py-2 flex items-center justify-between">
     <div class="flex items-center gap-2 text-xs text-amber-800">
-      <span class="font-bold">🔶 DEMO MODE</span>
-      <span id="demo-banner-text">— Running with mock responses. Add your OpenAI API key to .env for full AI responses.</span>
+      <span class="font-bold">🔶 演示模式</span>
+      <span id="demo-banner-text">— 当前为演示模式。请在 .env 中配置 OpenAI API Key 以启用完整 AI 回复。</span>
     </div>
     <button onclick="document.getElementById('demo-banner').classList.add('hidden')"
-      class="text-amber-500 hover:text-amber-700 text-xs font-medium" id="demo-banner-dismiss">Dismiss</button>
+      class="text-amber-500 hover:text-amber-700 text-xs font-medium" id="demo-banner-dismiss">关闭</button>
   </div>
 
   <!-- Header -->
@@ -49,26 +49,23 @@
       </div>
       <div>
         <h1 class="text-base font-semibold text-slate-800">TravelDesk AI</h1>
-        <p class="text-xs text-slate-500" id="subtitle-text">Corporate Travel Support Platform</p>
+        <p class="text-xs text-slate-500" id="subtitle-text">企业差旅支持平台</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
       <button
         id="language-toggle"
-        onclick="toggleLanguage()"
-        class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full px-3 py-1.5 font-medium transition-colors"
-      >
-        中文
-      </button>
+        class="hidden text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full px-3 py-1.5 font-medium transition-colors"
+      >中文</button>
       <div id="agent-pipeline" class="hidden md:flex items-center gap-1.5 text-xs text-slate-500 bg-slate-100 rounded-full px-3 py-1.5">
         <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-        <span id="pipeline-text">Ready</span>
+        <span id="pipeline-text">就绪</span>
       </div>
       <div class="flex items-center gap-2 bg-slate-100 rounded-full px-3 py-1.5">
         <div class="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center">
-          <span class="text-xs font-semibold text-indigo-700" id="user-initials">JD</span>
+          <span class="text-xs font-semibold text-indigo-700" id="user-initials">ZS</span>
         </div>
-        <span class="text-xs font-medium text-slate-700" id="user-name-display">John Doe</span>
+        <span class="text-xs font-medium text-slate-700" id="user-name-display">张三</span>
       </div>
     </div>
   </header>
@@ -78,70 +75,70 @@
     <!-- Sidebar -->
     <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden lg:flex">
       <div class="p-4 border-b border-slate-100">
-        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3" id="quick-actions-title">Quick Actions</p>
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3" id="quick-actions-title">快捷操作</p>
         <div class="space-y-1.5">
           <button onclick="sendQuickActionByType('flight')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>✈️</span> <span id="qa-flight">Book a Flight</span>
+            <span>✈️</span> <span id="qa-flight">预订机票</span>
           </button>
           <button onclick="sendQuickActionByType('hotel')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>🏨</span> <span id="qa-hotel">Book a Hotel</span>
+            <span>🏨</span> <span id="qa-hotel">预订酒店</span>
           </button>
           <button onclick="sendQuickActionByType('policy')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>📋</span> <span id="qa-policy">Travel Policy</span>
+            <span>📋</span> <span id="qa-policy">差旅政策</span>
           </button>
           <button onclick="sendQuickActionByType('visa')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>🪪</span> <span id="qa-visa">Visa Assistance</span>
+            <span>🪪</span> <span id="qa-visa">签证协助</span>
           </button>
           <button onclick="sendQuickActionByType('cancel')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>↩️</span> <span id="qa-cancel">Cancel / Refund</span>
+            <span>↩️</span> <span id="qa-cancel">取消 / 退款</span>
           </button>
           <button onclick="sendQuickActionByType('expense')"
             class="w-full text-left text-sm px-3 py-2 rounded-lg text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-            <span>💳</span> <span id="qa-expense">Expense Claims</span>
+            <span>💳</span> <span id="qa-expense">费用报销</span>
           </button>
         </div>
       </div>
 
       <div class="p-4 flex-1">
-        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3" id="agent-pipeline-title">Agent Pipeline</p>
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3" id="agent-pipeline-title">Agent 流程</p>
         <div class="space-y-2" id="agent-status-list">
           <div class="agent-item flex items-center gap-2 text-xs text-slate-400" id="status-supervisor">
             <div class="w-2 h-2 rounded-full bg-slate-200"></div>
-            <span>Supervisor</span>
+            <span>主管 Agent</span>
           </div>
           <div class="agent-item flex items-center gap-2 text-xs text-slate-400" id="status-booking">
             <div class="w-2 h-2 rounded-full bg-slate-200"></div>
-            <span>Booking Agent</span>
+            <span>预订 Agent</span>
           </div>
           <div class="agent-item flex items-center gap-2 text-xs text-slate-400" id="status-knowledge">
             <div class="w-2 h-2 rounded-full bg-slate-200"></div>
-            <span>Knowledge Agent</span>
+            <span>知识 Agent</span>
           </div>
           <div class="agent-item flex items-center gap-2 text-xs text-slate-400" id="status-escalation">
             <div class="w-2 h-2 rounded-full bg-slate-200"></div>
-            <span>Escalation Agent</span>
+            <span>升级 Agent</span>
           </div>
           <div class="agent-item flex items-center gap-2 text-xs text-slate-400" id="status-customer_interaction">
             <div class="w-2 h-2 rounded-full bg-slate-200"></div>
-            <span>Customer Interaction</span>
+            <span>客户沟通 Agent</span>
           </div>
         </div>
       </div>
 
       <div class="p-4 border-t border-slate-100">
         <div class="bg-indigo-50 rounded-xl p-3">
-          <p class="text-xs font-semibold text-indigo-800 mb-1">SLA Status</p>
+          <p class="text-xs font-semibold text-indigo-800 mb-1">SLA 状态</p>
           <div class="flex items-center justify-between">
-            <span class="text-xs text-indigo-600">Response Target</span>
+            <span class="text-xs text-indigo-600">目标响应</span>
             <span class="text-xs font-bold text-indigo-800">5 min</span>
           </div>
           <div class="flex items-center justify-between mt-1">
-            <span class="text-xs text-indigo-600">Avg Today</span>
+            <span class="text-xs text-indigo-600">今日平均</span>
             <span class="text-xs font-bold text-green-700">1.2 min</span>
           </div>
         </div>
@@ -165,7 +162,7 @@
             </div>
             <div class="max-w-xl">
               <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-slate-100">
-                <p class="text-sm text-slate-800 font-medium mb-1" id="welcome-title">Welcome to TravelDesk AI 👋</p>
+                <p class="text-sm text-slate-800 font-medium mb-1" id="welcome-title">欢迎使用 TravelDesk AI 👋</p>
                 <p class="text-sm text-slate-600" id="welcome-desc">
                   I'm your AI-powered corporate travel assistant. I can help you with:
                 </p>
@@ -198,7 +195,7 @@
             <span class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></span>
             <span class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></span>
             <span class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></span>
-            <span class="text-xs text-slate-400 ml-2" id="typing-status">Processing...</span>
+            <span class="text-xs text-slate-400 ml-2" id="typing-status">处理中...</span>
           </div>
         </div>
       </div>
@@ -210,7 +207,7 @@
             <textarea
               id="message-input"
               rows="1"
-              placeholder="Ask about flights, hotels, policies, visas..."
+              placeholder="可咨询机票、酒店、差旅政策、签证等..."
               class="w-full bg-transparent text-sm text-slate-800 placeholder-slate-400 resize-none outline-none max-h-32"
               onkeydown="handleKeyDown(event)"
               oninput="autoResize(this)"
@@ -227,7 +224,7 @@
             </svg>
           </button>
         </div>
-        <p class="text-xs text-slate-400 mt-2" id="powered-by">Powered by OpenAI Codex · LangGraph Orchestration · Corporate Travel Policy Aware</p>
+        <p class="text-xs text-slate-400 mt-2" id="powered-by">由 OpenAI Codex 驱动 · LangGraph 编排 · 支持企业差旅政策</p>
       </div>
     </main>
 
@@ -245,14 +242,14 @@
         </div>
         <div>
           <h2 class="text-xl font-bold text-slate-800">TravelDesk AI</h2>
-          <p class="text-sm text-slate-500" id="name-modal-subtitle">Corporate Travel Support</p>
+          <p class="text-sm text-slate-500" id="name-modal-subtitle">企业差旅支持</p>
         </div>
       </div>
-      <p class="text-slate-600 mb-6 text-sm" id="name-modal-desc">Welcome! Please enter your name to personalize your experience.</p>
+      <p class="text-slate-600 mb-6 text-sm" id="name-modal-desc">欢迎使用！请输入您的姓名以获得个性化服务。</p>
       <input
         id="name-input"
         type="text"
-        placeholder="Your full name (e.g., Sarah Johnson)"
+        placeholder="请输入姓名（例如：王小明）"
         class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-400 mb-4"
         onkeydown="if(event.key==='Enter') startChat()"
       />
@@ -260,7 +257,7 @@
         onclick="startChat()"
         class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-xl text-sm transition-colors"
       >
-        <span id="start-chat-text">Start Chat →</span>
+        <span id="start-chat-text">开始对话 →</span>
       </button>
     </div>
   </div>
@@ -271,7 +268,7 @@
     // ---------------------------------------------------------------------------
     let conversationId = null;
     let customerName = "Traveler";
-    let currentLanguage = localStorage.getItem('traveldesk_lang') || 'en';
+    let currentLanguage = 'zh';
     let isLoading = false;
     const API_BASE = window.location.origin;
     const I18N = {
@@ -294,7 +291,7 @@
         welcomeLi5: 'Expense guidance',
         welcomeEnd: 'How can I help you today?',
         inputPlaceholder: 'Ask about flights, hotels, policies, visas...',
-        poweredBy: 'Powered by OpenAI Codex · LangGraph Orchestration · Corporate Travel Policy Aware',
+        poweredBy: '由 OpenAI Codex 驱动 · LangGraph 编排 · 支持企业差旅政策',
         nameModalSubtitle: 'Corporate Travel Support',
         nameModalDesc: 'Welcome! Please enter your name to personalize your experience.',
         namePlaceholder: 'Your full name (e.g., Sarah Johnson)',
@@ -365,7 +362,7 @@
 
     function applyLanguage() {
       document.documentElement.lang = currentLanguage === 'zh' ? 'zh-CN' : 'en';
-      document.getElementById('language-toggle').textContent = currentLanguage === 'zh' ? 'EN' : '中文';
+      document.getElementById('language-toggle').textContent = '中文';
       document.getElementById('subtitle-text').textContent = t('subtitle');
       document.getElementById('quick-actions-title').textContent = t('quickActionsTitle');
       document.getElementById('qa-flight').textContent = t('qaFlight');
@@ -398,8 +395,7 @@
     }
 
     function toggleLanguage() {
-      currentLanguage = currentLanguage === 'en' ? 'zh' : 'en';
-      localStorage.setItem('traveldesk_lang', currentLanguage);
+      currentLanguage = 'zh';
       applyLanguage();
     }
 
@@ -581,10 +577,10 @@
         const compliant = f.policy_compliant !== false;
         const preferred = f.preferred_vendor !== false;
         const badge = !compliant
-          ? `<span class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">Needs Approval</span>`
+          ? `<span class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">需审批</span>`
           : preferred
-            ? `<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Policy Compliant</span>`
-            : `<span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">Non-Preferred</span>`;
+            ? `<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">政策合规</span>`
+            : `<span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">非优选</span>`;
         const note = f.policy_note
           ? `<p class="text-xs text-amber-600 mt-2 italic">⚠️ ${escapeHtml(f.policy_note)}</p>` : '';
         return `
@@ -622,10 +618,10 @@
               </div>
               <div class="text-right flex-shrink-0">
                 <p class="text-xl font-bold text-indigo-700">$${f.price}</p>
-                <p class="text-xs text-slate-400">per person</p>
+                <p class="text-xs text-slate-400">每人</p>
                 <button onclick="selectOption('flight', '${escapeHtml(f.flight_number)}')"
                   class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-medium">
-                  Select
+                  选择
                 </button>
               </div>
             </div>
@@ -638,8 +634,8 @@
       const cards = hotels.map(h => {
         const compliant = h.policy_compliant !== false;
         const badge = !compliant
-          ? `<span class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">Needs Approval</span>`
-          : `<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Policy Compliant</span>`;
+          ? `<span class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">需审批</span>`
+          : `<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">政策合规</span>`;
         const stars = '★'.repeat(h.stars || 3) + '☆'.repeat(5 - (h.stars || 3));
         const amenities = (h.amenities || []).slice(0, 4).map(a => `<span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">${escapeHtml(a)}</span>`).join('');
         const note = h.policy_note
@@ -664,11 +660,11 @@
               </div>
               <div class="text-right flex-shrink-0">
                 <p class="text-xl font-bold text-indigo-700">$${h.nightly_rate}</p>
-                <p class="text-xs text-slate-400">per night</p>
-                ${h.nights ? `<p class="text-xs text-slate-500">$${h.total_price} total (${h.nights} nights)</p>` : ''}
+                <p class="text-xs text-slate-400">每晚</p>
+                ${h.nights ? `<p class="text-xs text-slate-500">总价 $${h.total_price}（${h.nights} 晚）</p>` : ''}
                 <button onclick="selectOption('hotel', '${escapeHtml(h.id)}')"
                   class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-medium">
-                  Select
+                  选择
                 </button>
               </div>
             </div>
@@ -689,13 +685,13 @@
         <div class="mt-3 border ${colorClass.split(' ')[2]} rounded-xl p-4 ${colorClass.split(' ')[0]}">
           <div class="flex items-center gap-2 mb-2">
             <span class="text-lg">🎫</span>
-            <span class="font-semibold text-sm">Escalation Ticket Created</span>
+            <span class="font-semibold text-sm">已创建升级工单</span>
           </div>
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <div><span class="text-slate-500">Ticket ID:</span> <span class="font-mono font-bold">${escapeHtml(data.id || '')}</span></div>
-            <div><span class="text-slate-500">Priority:</span> <span class="font-bold">${escapeHtml(data.priority || '')}</span></div>
-            <div><span class="text-slate-500">Assigned To:</span> <span>${escapeHtml(data.team || '')}</span></div>
-            <div><span class="text-slate-500">ETA:</span> <span>${escapeHtml(data.eta || '')}</span></div>
+            <div><span class="text-slate-500">工单号：</span> <span class="font-mono font-bold">${escapeHtml(data.id || '')}</span></div>
+            <div><span class="text-slate-500">优先级：</span> <span class="font-bold">${escapeHtml(data.priority || '')}</span></div>
+            <div><span class="text-slate-500">处理团队：</span> <span>${escapeHtml(data.team || '')}</span></div>
+            <div><span class="text-slate-500">预计响应：</span> <span>${escapeHtml(data.eta || '')}</span></div>
           </div>
         </div>`;
     }

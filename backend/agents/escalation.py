@@ -29,7 +29,7 @@ PRIORITY_MAP = {
 
 
 def escalation_agent_node(state: TravelDeskState) -> dict:
-    is_zh = state.get("language", "en").lower().startswith("zh")
+    is_zh = str(state.get("language") or "zh").lower().startswith("zh")
     intent = state.get("intent", "unknown")
     reason = state.get("escalation_reason") or f"Complex request: {intent}"
     customer_name = state.get("customer_name", "Traveler")

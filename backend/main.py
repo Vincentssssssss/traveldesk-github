@@ -61,7 +61,7 @@ class ChatRequest(BaseModel):
     message: str
     conversation_id: Optional[str] = None
     customer_name: str = "Traveler"
-    language: str = "en"
+    language: str = "zh"
 
 
 class ChatResponse(BaseModel):
@@ -101,7 +101,8 @@ async def chat(req: ChatRequest):
     conversation_id = req.conversation_id or str(uuid.uuid4())
     config = {"configurable": {"thread_id": conversation_id}}
 
-    language = "zh" if req.language.lower().startswith("zh") else "en"
+    # Current product mode is Chinese-first; all sessions run in zh.
+    language = "zh"
 
     initial_state = {
         "messages": [HumanMessage(content=req.message)],

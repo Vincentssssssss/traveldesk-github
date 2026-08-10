@@ -19,7 +19,7 @@ Answer using ONLY the provided context. Never invent policy details."""
 
 
 def _is_zh(state: TravelDeskState) -> bool:
-    return state.get("language", "en").lower().startswith("zh")
+    return str(state.get("language") or "zh").lower().startswith("zh")
 
 
 def knowledge_agent_node(state: TravelDeskState) -> dict:

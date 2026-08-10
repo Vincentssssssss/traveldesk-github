@@ -25,7 +25,7 @@ def customer_interaction_node(state: TravelDeskState) -> dict:
 
     response_type = state.get("response_type", "text")
     customer_name = state.get("customer_name", "there")
-    is_zh = state.get("language", "en").lower().startswith("zh")
+    is_zh = str(state.get("language") or "zh").lower().startswith("zh")
 
     last_message = state["messages"][-1]
     user_text = last_message.content if hasattr(last_message, "content") else str(last_message)
