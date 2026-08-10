@@ -3,6 +3,22 @@ from tools.hotel_search import search_hotels
 from models.state import TravelDeskState
 
 
+def _coalesce_text(value, default: str) -> str:
+    if value is None:
+        return default
+    text = str(value).strip()
+    return text or default
+
+
+def _coalesce_int(value, default: int) -> int:
+    try:
+        if value is None:
+            return default
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
 def booking_agent_node(state: TravelDeskState) -> dict:
     """Searches for flights or hotels based on extracted entities."""
     intent = state.get("intent", "")
@@ -11,10 +27,10 @@ def booking_agent_node(state: TravelDeskState) -> dict:
         entities = state["search_results"][0].get("entities", {})
 
     if intent == "flight_search":
-        origin = entities.get("origin", "New York")
-        destination = entities.get("destination", "Los Angeles")
+        origin = _coalesce_text(entities.get("origin"), "New York")
+        destination = _coalesce_text(entities.get("destination"), "Los Angeles")
         date = entities.get("date")
-        passengers = int(entities.get("passengers", 1))
+        passengers = _coalesce_int(entities.get("passengers"), 1)
 
         results = search_flights(
             origin=origin,
@@ -29,10 +45,10 @@ def booking_agent_node(state: TravelDeskState) -> dict:
         }
 
     elif intent == "hotel_search":
-        city = entities.get("destination") or entities.get("city", "Los Angeles")
+        city = _coalesce_text(entities.get("destination") or entities.get("city"), "Los Angeles")
         check_in = entities.get("check_in") or entities.get("date")
         check_out = entities.get("check_out")
-        guests = int(entities.get("guests", 1))
+        guests = _coalesce_int(entities.get("guests"), 1)
 
         results = search_hotels(
             city=city,

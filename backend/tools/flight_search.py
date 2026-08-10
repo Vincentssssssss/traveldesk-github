@@ -32,9 +32,14 @@ def _load_flights() -> list[dict]:
         return json.load(f)["flights"]
 
 
-def _resolve_city(text: str) -> str:
-    text_lower = text.lower().strip()
-    return CITY_CODES.get(text_lower, text.upper()[:3])
+def _resolve_city(text: Optional[str]) -> str:
+    if text is None:
+        return ""
+    text_value = str(text).strip()
+    if not text_value:
+        return ""
+    text_lower = text_value.lower()
+    return CITY_CODES.get(text_lower, text_value.upper()[:3])
 
 
 def search_flights(origin: str, destination: str, date: str = None, passengers: int = 1) -> List[Dict]:
@@ -46,12 +51,14 @@ def search_flights(origin: str, destination: str, date: str = None, passengers: 
 
     origin_code = _resolve_city(origin)
     dest_code = _resolve_city(destination)
+    origin_text = (origin or "").upper()
+    destination_text = (destination or "").upper()
 
     # Filter matching flights
     matches = [
         f for f in all_flights
-        if (f["origin"] == origin_code or origin.upper() in f["origin"])
-        and (f["destination"] == dest_code or destination.upper() in f["destination"])
+        if (f["origin"] == origin_code or (origin_text and origin_text in f["origin"]))
+        and (f["destination"] == dest_code or (destination_text and destination_text in f["destination"]))
     ]
 
     # If no exact match, return a diverse subset to demonstrate the UI
